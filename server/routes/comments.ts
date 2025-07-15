@@ -56,13 +56,13 @@ commentsRouter.post(
 
 // Delete comment
 commentsRouter.delete("/:id", (req: Request, res: Response<{ message: string } | { error: string }>) => {
-  const index = comments.findIndex(c => c.id === req.params.id);
+  const commentId = req.params.id;
+  const index = comments.findIndex(c => c.id === commentId);
   if (index === -1) {
     return res.status(404).json({ error: "Comment not found" });
   }
-
   comments.splice(index, 1);
-  res.status(200).json({ message: "Comment deleted" });
+  res.status(200).json({ message: `Comment id:${commentId} deleted` });
 });
 
 export default commentsRouter;
