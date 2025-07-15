@@ -13,3 +13,5 @@ export type User = {
     createdAt: string;
     updatedAt: string;
 };
+
+export type UserInput = Omit<User, "userId"|"favoriteBookIds"|"createdAt"|"updatedAt">;
