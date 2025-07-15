@@ -16,3 +16,5 @@ export type Book = {
     condition: "new" | "good" | "worn";
     genreId: string;
 };
+
+export type BookCreateInput = Omit<Book, "id" | "likesCount" | "viewsCount" | "favoritesCount" | "status">;

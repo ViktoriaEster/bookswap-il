@@ -1,6 +1,5 @@
-
 import type { Request, Response } from "express";
-import type { Book } from "../types/Book";
+import {Book, BookCreateInput} from "../types/Book";
 import { Router } from "express";
 import { mockBooks as books } from "../data/mockBooks";
 import {findBookAndIndexById, generateBookId, validateBook, validateBookUpdate} from "../utils/booksUtils";
@@ -41,19 +40,34 @@ booksRouter.get("/owner/:id", (req: Request<{ id: string }>, res: Response<Book[
 
 //Post books methods
 //Create new book
-booksRouter.post("/", (req: Request<{}, {}, Book>, res: Response<Book | {error: string}>) => {
-    const newBook = req.body;
+booksRouter.post("/", (req: Request<{}, {}, BookCreateInput>, res: Response<Book | {error: string}>) => {
+    const bookData = req.body;
+    const newBook:Book = {
+        id: '',
+        title: bookData.title,
+        picture: bookData.picture,
+        ownerId: bookData.ownerId,
+        status: "active",
+        authorIds: bookData.authorIds,
+        genreId: bookData.genreId,
+        languageId: bookData.languageId,
+        cityId: bookData.cityId,
+        offerType: bookData.offerType,
+        likesCount: 0,
+        viewsCount: 0,
+        favoritesCount: 0,
+        description: bookData.description,
+        condition: bookData.condition,
+    };
     const validationError = validateBook(newBook);
     if (validationError) {
         return res.status(400).json({ error: validationError });
     }
-
     newBook.id = generateBookId();
     books.push(newBook);
     res.status(201).json(newBook);
 });
 
-//Edit book
 // Edit book (partial update)
 booksRouter.put("/:id", (req: Request<{ id: string }, {}, Partial<Book>>, res: Response<Book | { error: string }>) => {
     const bookId = req.params.id;
