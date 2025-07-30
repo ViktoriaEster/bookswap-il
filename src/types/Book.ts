@@ -16,3 +16,9 @@ export type Book = {
     condition: "new" | "good" | "worn";
     genreId: string;
 };
+
+export type BookCreateInput = Omit<Book, "id" | "likesCount" | "viewsCount" | "favoritesCount" | "status">;
+
+export type BookUpdateInput = Partial<Book>;
+
+export type BookStatus = "active" | "archived";
