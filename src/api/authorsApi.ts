@@ -42,10 +42,10 @@ export const updateAuthor = async (id: string, update: AuthorCreateUpdateInput):
     }
 };
 
-export const deleteAuthor = async (id: string): Promise<{message: string}> => {
+export const deleteAuthor = async (id: string): Promise<{message: string, id: string}> => {
     try {
         const response = await axiosInstance.delete<{message: string}>(`/authors/${id}`);
-        return response.data
+        return {message: response.data.message, id: id};
     }
     catch (error) {
         console.error(error);

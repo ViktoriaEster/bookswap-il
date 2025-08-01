@@ -68,10 +68,10 @@ export const updateBookStatus = async (id: string, status: BookStatus): Promise<
     }
 };
 
-export const deleteBook = async (id: string): Promise<{message: string}> => {
+export const deleteBook = async (id: string): Promise<{message: string, id: string}> => {
     try {
         const response = await axiosInstance.delete<{message: string}>(`/books/${id}`);
-        return response.data;
+        return {message: response.data.message, id: id};
     }
     catch (error) {
         console.error(error);

@@ -9,7 +9,7 @@ languagesRouter.get("/", (req: Request, res: Response<Language[]>) => {
     res.status(200).json(languages);
 });
 
-// Get language by id
+// Get languages by id
 languagesRouter.get("/:id", (req: Request, res: Response<Language | { error: string }>) => {
     const language = languages.find(lang => lang.id === req.params.id);
     if (!language) {

@@ -45,10 +45,10 @@ export const editUser = async (id: string, userData: UserInput):Promise<User> =>
     }
 };
 
-export const deleteUser = async (id: string):Promise<{message: string}> => {
+export const deleteUser = async (id: string):Promise<{message: string, id: string}> => {
     try {
         const response = await axiosInstance.delete<{message: string}>(`/users/${id}`);
-        return response.data;
+        return {message: response.data.message, id: id};
     }
     catch (error) {
         console.error(error);

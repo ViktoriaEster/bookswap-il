@@ -42,10 +42,10 @@ export const addComment = async (newComment: CommentInput): Promise<Comment> => 
     }
 };
 
-export const deleteComment = async (id: string): Promise<{message: string}> => {
+export const deleteComment = async (id: string): Promise<{message: string, id: string}> => {
     try {
         const response = await axiosInstance.delete<{message: string}>(`/comments/${id}`);
-        return response.data;
+        return {message: response.data.message, id: id};
     } catch (error) {
         console.error(error);
         throw new Error("Error deleting comment");

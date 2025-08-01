@@ -42,10 +42,10 @@ export const updateCity = async (id: string, cityData: CityAppUpdateInput): Prom
     }
 };
 
-export const deleteCity = async (id: string): Promise<{ message: string }> => {
+export const deleteCity = async (id: string): Promise<{ message: string, id: string}> => {
     try {
         const response = await axiosInstance.delete<{ message: string }>(`/cities/${id}`);
-        return response.data;
+        return {message: response.data.message, id: id};
     } catch (error) {
         console.error(error);
         throw new Error("Error deleting city");
