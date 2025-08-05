@@ -1,0 +1,31 @@
+.appContainer {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: sans-serif;
+}
+
+.navbar {
+    width: 100%;
+    background-color: white;
+    padding: 0.5rem;
+    gap: 1rem;
+    border-bottom: 1px solid lightgray;
+}
+
+.pageContent {
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    min-height: 300px;
+}

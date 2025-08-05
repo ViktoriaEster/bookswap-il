@@ -21,7 +21,7 @@ export const getBooksThunk = createAsyncThunk<Book[], void, {rejectValue: string
     }
 );
 
-export const getActiveBookThunk = createAsyncThunk<Book[], void, {rejectValue: string}>(
+export const getActiveBooksThunk = createAsyncThunk<Book[], void, {rejectValue: string}>(
     "books/getActiveBook",
     async (_, thunkAPI) => {
         try {

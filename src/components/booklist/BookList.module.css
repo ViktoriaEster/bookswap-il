@@ -1,0 +1,43 @@
+.bookListContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 3rem;
+    padding: 1rem;
+}
+
+.navMenuContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 200px;
+}
+
+.navMenuItem {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font: normal 1rem "Roboto", sans-serif;
+    transition: background-color 0.2s ease;
+    background-color: #f8f8f8;
+}
+
+.navMenuItem:hover {
+    background-color: #e0e0e0;
+}
+
+.active {
+    font-weight: bold;
+    background-color: #d0e6ff;
+    color: #389d5f;
+    border-left: 4px solid #389d5f;
+}
+
+.bookCardsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    scroll-behavior: auto;
+}

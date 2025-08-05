@@ -1,0 +1,28 @@
+.navBarContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.navBarContainer button {
+    border: none;
+    color: #389d5f;
+    background: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: Arial;
+}
+
+.activeLink button {
+    background-color: #9bbb5e;
+    color: white;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}

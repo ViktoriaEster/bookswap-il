@@ -14,7 +14,7 @@ export const getBooks = async (): Promise<Book[]> => {
 
 export const getActiveBooks = async (): Promise<Book[]> => {
     try {
-        const response = await axiosInstance.get<Book[]>('/books/active');
+        const response = await axiosInstance.get<Book[]>('/books/status/active');
         return response.data;
     } catch (error) {
         console.error(error);

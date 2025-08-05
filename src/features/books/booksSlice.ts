@@ -4,14 +4,14 @@ import {
     createBookThunk,
     deleteBookThunk,
     editBookThunk,
-    getActiveBookThunk,
+    getActiveBooksThunk,
     getBookByIdThunk,
     getBooksThunk,
     getOwnerBooksByIdThunk
 } from "./booksThunks.ts";
 import {mergeBooksByIdUtil} from "./booksUtils.ts";
 
-type BooksState = {
+export type BooksState = {
     items: Book[];
     isLoading: boolean;
     error: string | null;
@@ -44,16 +44,16 @@ const booksSlice = createSlice({
                 state.error = action.payload || 'Failed to fetch books';
             })
             //getActiveBookThunk
-            .addCase(getActiveBookThunk.pending, (state: BooksState) => {
+            .addCase(getActiveBooksThunk.pending, (state: BooksState) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(getActiveBookThunk.fulfilled, (state: BooksState, action: PayloadAction<Book[]>) => {
+            .addCase(getActiveBooksThunk.fulfilled, (state: BooksState, action: PayloadAction<Book[]>) => {
                 state.isLoading = false;
                 state.error = null;
                 state.items = mergeBooksByIdUtil (state.items, action.payload);
             })
-            .addCase(getActiveBookThunk.rejected, (state: BooksState, action) => {
+            .addCase(getActiveBooksThunk.rejected, (state: BooksState, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to fetch books';
             })
