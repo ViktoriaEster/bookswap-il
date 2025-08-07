@@ -1,5 +1,7 @@
 export type Book = {
     id: string;
+    createdDate: string
+    isNew: boolean;
     title: string;
     authorIds: string[];
     cityId: string;

@@ -1,11 +1,19 @@
 import type {Book} from "../types/Book";
-import {mockBooks as books} from "../data/mockBooks";
-import { mockGenres as genres } from "../data/mockGenres";
+import {mockBooks} from "../data/mockBooks";
+import {mockGenres} from "../data/mockGenres";
+
+export const isBookNew = (createdDate: string): boolean => {
+    const now = new Date();
+    const created = new Date(createdDate);
+    const diffInMs = now.getTime() - created.getTime();
+    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+    return diffInDays <= 3;
+};
 
 export const findBookAndIndexById = (id: string): { book: Book | null; index: number } => {
-    const index = books.findIndex(book => book.id === id);
+    const index = mockBooks.findIndex(book => book.id === id);
     if (index === -1) return { book: null, index: -1 };
-    return { book: books[index], index };
+    return { book: mockBooks[index], index };
 }
 
 export const validateBook = (book: Partial<Book>): string | null => {
@@ -21,7 +29,7 @@ export const validateBook = (book: Partial<Book>): string | null => {
         return "Author IDs must be a non-empty array";
     }
 
-    const validGenre = genres.find(g => g.id === book.genreId);
+    const validGenre = mockGenres.find(g => g.id === book.genreId);
     if (!validGenre) {
         return "Invalid genre ID";
     }
@@ -53,7 +61,7 @@ export const validateBookUpdate = (book: Partial<Book>): string | null  => {
     }
 
     if ("genreId" in book) {
-        const validGenre = genres.find(g => g.id === book.genreId);
+        const validGenre = mockGenres.find(g => g.id === book.genreId);
         if (!validGenre) {
             return "Invalid genre ID";
         }

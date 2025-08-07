@@ -1,5 +1,7 @@
 export type Book = {
     id: string;
+    createdDate: string
+    isNew: boolean;
     title: string;
     authorIds: string[];
     cityId: string;
@@ -18,3 +20,5 @@ export type Book = {
 };
 
 export type BookCreateInput = Omit<Book, "id" | "likesCount" | "viewsCount" | "favoritesCount" | "status">;
+
+export type MockBook = Omit<Book, "createdDate" | "isNew">;

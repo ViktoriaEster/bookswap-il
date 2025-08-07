@@ -18,11 +18,10 @@ const BookCardSmall = ({book}: BookCardSmallProps) => {
         state.cities.items.find((city) => city.id === book.cityId)
     );
 
-    const isNew: boolean = true; // потом заменить на book.isNew
 
     return (
         <div className={styles.bookCardContainer}>
-            {isNew && <div className={styles.newBadge}>NEW</div>}
+            {book.isNew && <div className={styles.newBadge}>NEW</div>}
 
             <img
                 src={book.picture || bookAlt}
