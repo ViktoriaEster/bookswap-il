@@ -19,7 +19,7 @@ import type {AppDispatch, RootState} from "./app/store.ts";
 import {getActiveBooksThunk} from "./features/books/booksThunks.ts";
 import {getUsersThunk} from "./features/users/usersThunks.ts";
 import Spinner from "./components/spinner/Spinner.tsx";
-import BookCardBig from "./components/bookCardBig/BookCardBig.tsx";
+import BookPage from "./components/bookPage/BookPage.tsx";
 
 function App() {
     const dispatch = useDispatch<AppDispatch>();
@@ -54,7 +54,7 @@ function App() {
                 <Route path={ROUTES.GENRES} element={<BookList type={BOOK_LIST_TYPES.GENRES}/>}/>
                 <Route path={ROUTES.AUTHORS} element={<BookList type={BOOK_LIST_TYPES.AUTHORS}/>}/>
                 <Route path={ROUTES.CITIES} element={<BookList type={BOOK_LIST_TYPES.CITIES}/>}/>
-                <Route path={`${ROUTES.BOOK}/:bookId`} element={<BookCardBig/>}/>
+                <Route path={`${ROUTES.BOOK}/:bookId`} element={<BookPage/>}/>
             </Routes>
             }
         </div>

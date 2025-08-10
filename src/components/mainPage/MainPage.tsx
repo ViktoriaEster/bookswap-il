@@ -3,7 +3,8 @@
 const MainPage = () => {
     return (
         <div>
-            Home
+           <div>Description</div>
+            <div>Posts</div>
         </div>
     );
 };
