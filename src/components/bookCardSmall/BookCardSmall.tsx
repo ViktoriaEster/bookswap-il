@@ -1,23 +1,18 @@
 import type {Book} from "../../types/Book.ts";
-import {useSelector} from "react-redux";
-import type {RootState} from "../../app/store.ts";
 import type {Author} from "../../types/Author.ts";
 import type {City} from "../../types/City.ts";
 import styles from "./BookCardSmall.module.css";
 import bookAlt from "../../assets/bookAlt.png";
+import {useNavigate} from "react-router-dom";
 
 type BookCardSmallProps = {
     book: Book;
+    authors: Author[];
+    city: City | null;
 };
 
-const BookCardSmall = ({book}: BookCardSmallProps) => {
-    const authors: Author[] = useSelector((state: RootState) =>
-        state.authors.items.filter((author) => book.authorIds.includes(author.id))
-    );
-    const city: City | undefined = useSelector((state: RootState) =>
-        state.cities.items.find((city) => city.id === book.cityId)
-    );
-
+const BookCardSmall = ({book, authors, city}: BookCardSmallProps) => {
+    const navigate = useNavigate();
 
     return (
         <div className={styles.bookCardContainer}>
@@ -48,7 +43,7 @@ const BookCardSmall = ({book}: BookCardSmallProps) => {
                 <span>❤️ {book.likesCount}</span>
             </div>
 
-            <button className={styles.moreButton}>More details</button>
+            <button className={styles.moreButton} onClick={() => navigate(`/book/${book.id}`)}>More details</button>
         </div>
     );
 };

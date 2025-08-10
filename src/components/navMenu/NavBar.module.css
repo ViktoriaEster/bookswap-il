@@ -18,7 +18,7 @@
 }
 
 .activeLink button {
-    background-color: #9bbb5e;
+    background: linear-gradient(135deg, #9bbb5e , #389d5f);
     color: white;
     font-weight: bold;
     border: none;

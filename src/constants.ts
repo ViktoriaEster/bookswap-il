@@ -4,6 +4,7 @@ export const ROUTES = {
     GENRES: '/genres',
     AUTHORS: '/authors',
     CITIES: '/cities',
+    BOOK: '/book',
 
 };
 

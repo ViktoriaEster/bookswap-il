@@ -1,0 +1,237 @@
+
+.pageContainer {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    padding: 2rem;
+    background-color: #f5f6fa;
+    min-height: 100vh;
+}
+
+
+.bookCardBigContainer {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
+
+
+.contentContainer {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+
+.picContainer img {
+    max-width: 280px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.infoContainer h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.2;
+}
+
+
+.meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 1rem;
+    color: #555;
+}
+
+
+.descriptionBlock {
+    background-color: #f9fafc;
+    border-left: 4px solid #389d5f;
+    padding: 1rem;
+    border-radius: 8px;
+    line-height: 1.6;
+}
+
+.descriptionBlock h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.3rem;
+}
+
+
+.actionsBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fafafa;
+    border-radius: 10px;
+    min-width: 160px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+
+.statItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.statIcon {
+    font-size: 1.2rem;
+}
+
+
+.contactButton {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0077ff, #005fcc);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
+}
+
+.contactButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.sidebar {
+    flex: 1;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h3 {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+
+.similarBooks {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+@media (max-width: 900px) {
+    .pageContainer {
+        flex-direction: column;
+    }
+
+    .contentContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .picContainer img {
+        max-width: 100%;
+    }
+
+    .actionsBlock {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .stats {
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    .sidebar {
+        margin-top: 1rem;
+        width: 100%;
+    }
+}
+
+
+.buttonRow {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+
+.contactButton,
+.favoriteButton {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
+}
+
+
+.contactButton {
+    background: linear-gradient(135deg, #389d5f, #9bbb5e);
+    color: white;
+}
+
+
+.favoriteButton {
+    background: linear-gradient(135deg, #9bbb5e, #ff7b00);
+    color: white;
+}
+
+
+.contactButton:hover,
+.favoriteButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.statsCorner {
+    display: flex;
+    flex-direction: row;
+    bottom: 1rem;
+    right: 1rem;
+    gap: 1rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+
+.statItem {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}

@@ -5,9 +5,10 @@ import type {RootState} from "../../app/store.ts";
 import type {Author} from "../../types/Author.ts";
 import type {Genre} from "../../types/Genre.ts";
 import type {City} from "../../types/City.ts";
-import BookCardSmall from "../bookCard/BookCardSmall.tsx";
+import BookCardSmall from "../bookCardSmall/BookCardSmall.tsx";
 import styles from "./BookList.module.css";
-import {useState} from "react";
+import {useState, useEffect} from "react";
+
 
 
 type BookListProps = {
@@ -21,10 +22,11 @@ const BookList = ({type}: BookListProps) => {
     const genres = useSelector((state: RootState) => state.genres.items);
     const cities = useSelector((state: RootState) => state.cities.items);
 
-    const [activeFilter, setActiveFilter] = useState<string | null>(null);
+    const [activeFilter, setActiveFilter] = useState<string>('');
     const [activeBooks, setActiveBooks] = useState<Book[]>(books);
 
     const createNavMenuItems = (): Author[] | Genre[] | City[] | null => {
+        if (type === BOOK_LIST_TYPES.NEW_BOOKS) return null;
         switch (type) {
             case BOOK_LIST_TYPES.AUTHORS:
                 return authors;
@@ -37,9 +39,8 @@ const BookList = ({type}: BookListProps) => {
         }
     };
 
-    const navMenuItems = createNavMenuItems();
-
     const filterBooks = (filterId: string) => {
+        if (!filterId) return books;
         switch (type) {
             case BOOK_LIST_TYPES.AUTHORS:
                 return books.filter((book: Book) => book.authorIds.includes(filterId));
@@ -52,12 +53,22 @@ const BookList = ({type}: BookListProps) => {
         }
     }
 
-    const handleClickFilterBooks = (id: string) => {
-        setActiveFilter(id);
-        const newActiveBooks = filterBooks(id);
+    const handleClickFilterBooks = (filterId: string) => {
+        const nextFilter = activeFilter === filterId ? '' : filterId;
+        setActiveFilter(nextFilter);
+        const newActiveBooks = filterBooks(nextFilter);
         setActiveBooks(newActiveBooks);
     };
 
+    const navMenuItems = createNavMenuItems();
+
+    useEffect(() => {
+        if (type === BOOK_LIST_TYPES.NEW_BOOKS) {
+            setActiveBooks(books.filter(book => book.isNew));
+        } else {
+            setActiveBooks(books);
+        }
+    }, [type, books]);
 
     return (
         <div className={styles.bookListContainer}>
@@ -68,9 +79,11 @@ const BookList = ({type}: BookListProps) => {
                              onClick={() => handleClickFilterBooks(item.id)} key={item.id}>{item.name}</div>)}
                 </div>}
             <div className={styles.bookCardsContainer}>
-                {activeBooks.map(book =>
-                    <BookCardSmall key={book.id} book={book}/>
-                )}
+                {activeBooks.map((book: Book) => {
+                    const bookAuthors = authors.filter((author: Author) => book.authorIds.includes(author.id));
+                    const bookCity = cities.find((city: City) => book.cityId === city.id) ?? null;
+                    return <BookCardSmall key={book.id} book={book} authors={bookAuthors} city={bookCity}/>
+                })}
             </div>
         </div>
     );
