@@ -1,7 +1,8 @@
-import styles from './Header.module.css';
+import styles from "./userBlock.module.css";
 
 
-const LoginBlock = () => {
+
+const UserBlock = () => {
     return (
         <div>
             <button className={styles.loginBtn}>Login</button>
@@ -9,4 +10,4 @@ const LoginBlock = () => {
     );
 };
 
-export default LoginBlock;
+export default UserBlock;

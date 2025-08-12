@@ -43,20 +43,24 @@ function App() {
 
     return (
         <div className={styles.appContainer}>
-            <div className={styles.header}><Header/></div>
-            <div className={styles.navbar}><NavBar/></div>
-            <div className={styles.pageContent}></div>
-            { isAppLoading?
-             <div className={styles.loader}><Spinner /></div>
-            :<Routes>
-                <Route path={ROUTES.HOME} element={<MainPage/>}/>
-                <Route path={ROUTES.NEW_BOOKS} element={<BookList type={BOOK_LIST_TYPES.NEW_BOOKS}/>}/>
-                <Route path={ROUTES.GENRES} element={<BookList type={BOOK_LIST_TYPES.GENRES}/>}/>
-                <Route path={ROUTES.AUTHORS} element={<BookList type={BOOK_LIST_TYPES.AUTHORS}/>}/>
-                <Route path={ROUTES.CITIES} element={<BookList type={BOOK_LIST_TYPES.CITIES}/>}/>
-                <Route path={`${ROUTES.BOOK}/:bookId`} element={<BookPage/>}/>
-            </Routes>
-            }
+            <div className={styles.fixedTop}>
+                <div className={styles.header}><Header/></div>
+                <div className={styles.navbar}><NavBar/></div>
+            </div>
+
+            <div className={styles.pageContent}>
+                { isAppLoading
+                    ? <div className={styles.loader}><Spinner /></div>
+                    : <Routes>
+                        <Route path={ROUTES.HOME} element={<MainPage/>}/>
+                        <Route path={ROUTES.NEW_BOOKS} element={<BookList type={BOOK_LIST_TYPES.NEW_BOOKS}/>}/>
+                        <Route path={ROUTES.GENRES} element={<BookList type={BOOK_LIST_TYPES.GENRES}/>}/>
+                        <Route path={ROUTES.AUTHORS} element={<BookList type={BOOK_LIST_TYPES.AUTHORS}/>}/>
+                        <Route path={ROUTES.CITIES} element={<BookList type={BOOK_LIST_TYPES.CITIES}/>}/>
+                        <Route path={`${ROUTES.BOOK}/:bookId`} element={<BookPage/>}/>
+                    </Routes>
+                }
+            </div>
         </div>
     )
 }

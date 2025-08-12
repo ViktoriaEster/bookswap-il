@@ -1,0 +1,43 @@
+
+.postContainer {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+
+.postHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    color: #555;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #eee;
+}
+
+.userName {
+    font-weight: 600;
+    color: #0077cc;
+    cursor: pointer;
+}
+
+.actionText {
+    color: #333;
+}
+
+.postDate {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+
+.postContent {
+    padding: 1rem;
+}

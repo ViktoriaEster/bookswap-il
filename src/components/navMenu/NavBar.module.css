@@ -11,10 +11,9 @@
     border: none;
     color: #389d5f;
     background: none;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    font-family: Arial;
 }
 
 .activeLink button {
