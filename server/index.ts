@@ -1,3 +1,6 @@
+import * as dotenv from "dotenv";
+dotenv.config();
+
 import express = require("express");
 import cors = require("cors");
 import booksRouter from "./routes/books";
@@ -7,6 +10,8 @@ import citiesRouter from "./routes/cities";
 import commentsRouter from "./routes/comments";
 import genresRouter from "./routes/genres";
 import languagesRouter from "./routes/languages";
+import authRouter from "./routes/auth";
+
 
 const app = express();
 const PORT = 3001;
@@ -21,6 +26,7 @@ app.use("/api/cities", citiesRouter);
 app.use("/api/comments", commentsRouter);
 app.use("/api/genres", genresRouter);
 app.use("/api/languages", languagesRouter);
+app.use("/api/auth", authRouter);
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running at http://localhost:${PORT}`);

@@ -1,24 +1,36 @@
 import {type Request, type Response, Router} from "express";
-import {mockUsers as users} from "../data/mockUsers"
-import {User, UserInput} from "../types/User";
-import {findUserAndIndexById, validateUser, validateUserUpdate} from "../utils/usersUtils";
+import {mockUsers as users} from "../data/mockUsers";
+import {PublicUser, User, UserInput} from "../types/User";
+import {findUserAndIndexById, mapUserToPublic, validateUser, validateUserUpdate} from "../utils/usersUtils";
 
 
 const router = Router();
 
 //Get methods
-// get all users
-router.get("/", (req: Request, res: Response <User[]>) => {
-   res.status(200).json(users)
+// get all public users
+router.get("/", (req: Request, res: Response <PublicUser[]>) => {
+   const resUsers = users.map((user: User) => mapUserToPublic(user));
+   res.status(200).json(resUsers);
 });
 
-//get user by id
-router.get("/:id", (req: Request<{ id: string }>, res: Response<User | {error: string}>) => {
+//get public user by id
+router.get("/:id", (req: Request<{ id: string }>, res: Response<PublicUser | {error: string}>) => {
    const id = req.params.id;
    const {user, index} = findUserAndIndexById(id);
    if (index ===-1) {return res.status(404).json({error: "User not found"})}
-   res.status(200).json(user);
+   const resUser = mapUserToPublic(user);
+   res.status(200).json(resUser);
 });
+
+//get telegram link by userId
+router.get("/telegram/:id", (req: Request<{ id: string }>, res: Response<{link: string} | {error: string}>) => {
+    const id = req.params.id;
+    const {user, index} = findUserAndIndexById(id);
+    if (index ===-1) {return res.status(404).json({error: "User not found"})}
+    const link = user.telegram;
+    if (!link) {return res.status(404).json({error: "Telegram not available"})}
+    res.status(200).json({link: link});
+})
 
 //add user
 router.post("/", (req: Request <{}, {}, UserInput>,res: Response<User | {error: string}>) => {

@@ -1,9 +1,50 @@
 import {mockUsers as users} from "../data/mockUsers";
-import {User} from "../types/User";
+import {PrivateUser, PublicUser, User} from "../types/User";
+
+export const mapUserToPublic = (user: User): PublicUser => {
+    if (!user) return null;
+
+    return {
+        userId: user.userId,
+        name: user.name,
+        avatarUrl: user.avatarUrl,
+        birthDate: user.birthDate,
+        sex: user.sex,
+        aboutMe: user.aboutMe,
+        cityId: user.cityId,
+        favoriteBookIds: user.favoriteBookIds
+    };
+}
+
+export const mapToPrivateUser = (user: User): PrivateUser => {
+    if (!user) return null;
+
+    return {
+        userId: user.userId,
+        name: user.name,
+        avatarUrl: user.avatarUrl,
+        birthDate: user.birthDate,
+        sex: user.sex,
+        email: user.email,
+        telegram: user.telegram,
+        aboutMe: user.aboutMe,
+        cityId: user.cityId,
+        favoriteBookIds: user.favoriteBookIds,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
+    };
+}
+
 
 
 export const findUserAndIndexById = (userId: string): { user: User | null, index: number } => {
     const index = users.findIndex(user => user.userId === userId);
+    if (index === -1) return {user: null, index: -1};
+    return {user: users[index], index: index};
+};
+
+export const findUserAndIndexByEmail = (email: string): {user: User | null, index: number} => {
+    const index = users.findIndex(user => user.email === email);
     if (index === -1) return {user: null, index: -1};
     return {user: users[index], index: index};
 };
