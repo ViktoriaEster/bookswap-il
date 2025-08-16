@@ -53,7 +53,6 @@ function App() {
                     ? <div className={styles.loader}><Spinner /></div>
                     : <Routes>
                         <Route path={ROUTES.HOME} element={<MainPage/>}/>
-                        <Route path={ROUTES.NEW_BOOKS} element={<BookList type={BOOK_LIST_TYPES.NEW_BOOKS}/>}/>
                         <Route path={ROUTES.GENRES} element={<BookList type={BOOK_LIST_TYPES.GENRES}/>}/>
                         <Route path={ROUTES.AUTHORS} element={<BookList type={BOOK_LIST_TYPES.AUTHORS}/>}/>
                         <Route path={ROUTES.CITIES} element={<BookList type={BOOK_LIST_TYPES.CITIES}/>}/>

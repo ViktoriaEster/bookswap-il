@@ -7,7 +7,7 @@ import type {Genre} from "../../types/Genre.ts";
 import type {City} from "../../types/City.ts";
 import BookCardSmall from "../bookCardSmall/BookCardSmall.tsx";
 import styles from "./BookList.module.css";
-import {useState, useEffect} from "react";
+import {useState} from "react";
 
 
 
@@ -26,7 +26,6 @@ const BookList = ({type}: BookListProps) => {
     const [activeBooks, setActiveBooks] = useState<Book[]>(books);
 
     const createNavMenuItems = (): Author[] | Genre[] | City[] | null => {
-        if (type === BOOK_LIST_TYPES.NEW_BOOKS) return null;
         switch (type) {
             case BOOK_LIST_TYPES.AUTHORS:
                 return authors;
@@ -61,14 +60,6 @@ const BookList = ({type}: BookListProps) => {
     };
 
     const navMenuItems = createNavMenuItems();
-
-    useEffect(() => {
-        if (type === BOOK_LIST_TYPES.NEW_BOOKS) {
-            setActiveBooks(books.filter(book => book.isNew));
-        } else {
-            setActiveBooks(books);
-        }
-    }, [type, books]);
 
     return (
         <div className={styles.bookListContainer}>

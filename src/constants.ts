@@ -1,6 +1,5 @@
 export const ROUTES = {
     HOME: '/',
-    NEW_BOOKS: '/new-books',
     GENRES: '/genres',
     AUTHORS: '/authors',
     CITIES: '/cities',
@@ -9,7 +8,6 @@ export const ROUTES = {
 };
 
 export const BOOK_LIST_TYPES = {
-    NEW_BOOKS: 'newBooks',
     GENRES: 'booksByGenres',
     AUTHORS: 'booksByAuthors',
     CITIES: 'booksByCities',

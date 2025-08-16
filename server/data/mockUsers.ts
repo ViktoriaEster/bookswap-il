@@ -14,7 +14,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["2", "5"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "2",

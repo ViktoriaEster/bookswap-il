@@ -9,10 +9,6 @@ const NavBar = () => {
                 <button>Home</button>
             </NavLink>
 
-            <NavLink to={ROUTES.NEW_BOOKS} className={({isActive}) => isActive ? styles.activeLink : ""}>
-                <button>New books</button>
-            </NavLink>
-
             <NavLink to={ROUTES.GENRES} className={({isActive}) => isActive ? styles.activeLink : ""}>
                 <button>Genres</button>
             </NavLink>
