@@ -5,6 +5,7 @@ import authorsReducer from '../features/authors/authorsSlice';
 import citiesReducer from '../features/cities/citiesSlice';
 import languagesReducer from '../features/languages/languagesSlice';
 import genreReducer from '../features/genres/genresSlice';
+import authReducer from "../features/authorization/authSlice.ts"
 
 
 export const store = configureStore ({
@@ -15,6 +16,7 @@ export const store = configureStore ({
         cities: citiesReducer,
         languages: languagesReducer,
         genres: genreReducer,
+        auth: authReducer
         // comments: commentsReducer
     }
 });

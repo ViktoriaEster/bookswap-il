@@ -1,5 +1,5 @@
 import {axiosInstance} from "./instance.ts";
-import type {User, UserInput} from "../types/User.ts";
+import type {PrivateUser, User, UserInput} from "../types/User.ts";
 
 export const getUsers = async ():Promise <User[]> => {
     try {
@@ -23,9 +23,9 @@ export const getUser = async (id: string):Promise<User> => {
     }
 };
 
-export const addUser = async (userData: UserInput):Promise<User> => {
+export const addUser = async (userData: UserInput):Promise<PrivateUser> => {
     try {
-        const response = await axiosInstance.post<User>(`/users`, userData);
+        const response = await axiosInstance.post<PrivateUser>(`/users`, userData);
         return response.data;
     }
     catch (error) {
@@ -34,9 +34,9 @@ export const addUser = async (userData: UserInput):Promise<User> => {
     }
 };
 
-export const editUser = async (id: string, userData: UserInput):Promise<User> => {
+export const editUser = async (id: string, userData: UserInput):Promise<PrivateUser> => {
     try {
-        const response = await axiosInstance.put<User>(`/users/${id}`, userData);
+        const response = await axiosInstance.put<PrivateUser>(`/users/${id}`, userData);
         return response.data;
     }
     catch (error) {

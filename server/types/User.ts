@@ -16,5 +16,4 @@ export type User = {
 
 export type PublicUser = Omit<User, "passwordHash"|"email"|"telegram"|"createdAt"|"updatedAt">
 export type PrivateUser = Omit<User, "passwordHash">;
-
 export type UserInput = Omit<User, "userId"|"favoriteBookIds"|"createdAt"|"updatedAt">;
