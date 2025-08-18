@@ -10,17 +10,14 @@ const router = Router();
 // login
 router.post(
     "/login",
-    (req: Request<{}, {}, { email: string; password: string }>, res: Response<{ user: PrivateUser; token: string } | { error: string }>) => {
+    (req: Request<{}, {}, { email: string; password: string }>, res: Response<{ token: string } | { error: string }>) => {
         const { email, password } = req.body;
         const { user, index } = findUserAndIndexByEmail(email);
         if (index === -1 || user.passwordHash !== password) {
             return res.status(401).json({ error: "E-mail or password not correct" });
         }
-
         const token = signAccessToken({ userId: user.userId });
-        const privateUser = mapToPrivateUser(user);
-
-        return res.status(200).json({ user: privateUser, token });
+        return res.status(200).json({ token:token });
     }
 );
 

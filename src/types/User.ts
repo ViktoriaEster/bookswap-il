@@ -17,4 +17,9 @@ export type PrivateUser = User & {
     passwordHash: string;
 }
 
+export type AuthLoginData = {
+    email: string;
+    password: string;
+}
+
 export type UserInput = Omit<User, "userId"|"favoriteBookIds">;

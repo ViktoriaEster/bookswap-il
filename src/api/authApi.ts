@@ -1,21 +1,21 @@
 import {axiosInstance} from "./instance.ts";
-import type {PrivateUser} from "../types/User.ts";
+import type {AuthLoginData, PrivateUser} from "../types/User.ts";
 
-export const loginUser = async (email: string, password: string): Promise<{user: PrivateUser, token: string}> => {
+export const loginUser = async (data: AuthLoginData): Promise<{token: string }> => {
     try {
-        const response = await axiosInstance.post("/auth/login", {email: email, password: password});
+        const response = await axiosInstance.post("/auth/login", {email: data.email, password: data.password});
         localStorage.setItem("token", response.data.token);
         return response.data;
-    }
-    catch(error) {
+    } catch (error) {
         console.error(error);
         throw new Error("Error authenticating user");
     }
 };
 
+
 export const getMe = async (): Promise<PrivateUser> => {
     try {
-        const response = await axiosInstance.get("/api/me");
+        const response = await axiosInstance.get("/auth/me");
         return response.data;
     } catch (error) {
         console.error(error);

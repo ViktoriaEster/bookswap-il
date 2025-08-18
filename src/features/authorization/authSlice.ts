@@ -34,10 +34,9 @@ export const authSlice = createSlice({
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(loginUserThunk.fulfilled, (state: AuthState, action: PayloadAction<{user: PrivateUser, token: string}>) => {
+            .addCase(loginUserThunk.fulfilled, (state: AuthState, action: PayloadAction<{token: string}>) => {
                 state.isLoading = false;
                 state.error = null;
-                state.currentUser = action.payload.user;
                 localStorage.setItem("token", action.payload.token);
             })
             .addCase(loginUserThunk.rejected, (state: AuthState, action) => {
@@ -52,6 +51,7 @@ export const authSlice = createSlice({
             .addCase(getMeThunk.fulfilled, (state: AuthState, action: PayloadAction<PrivateUser>) => {
                 state.isLoading = false;
                 state.error = null;
+                state.isLogin = true;
                 state.currentUser = action.payload;
             })
             .addCase(getMeThunk.rejected, (state: AuthState, action) => {

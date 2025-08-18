@@ -20,6 +20,8 @@ import {getActiveBooksThunk} from "./features/books/booksThunks.ts";
 import {getUsersThunk} from "./features/users/usersThunks.ts";
 import Spinner from "./components/spinner/Spinner.tsx";
 import BookPage from "./components/bookPage/BookPage.tsx";
+import LoginPage from "./components/LoginPage/LoginPage.tsx";
+import {getMeThunk} from "./features/authorization/authThunks.ts";
 
 function App() {
     const dispatch = useDispatch<AppDispatch>();
@@ -31,6 +33,7 @@ function App() {
         dispatch(getGenresThunk());
         dispatch(getLanguagesThunk());
         dispatch(getUsersThunk());
+        dispatch(getMeThunk());
     }, [dispatch]);
 
     const isBooksLoading: boolean = useSelector((state: RootState) => state.books.isLoading);
@@ -57,6 +60,7 @@ function App() {
                         <Route path={ROUTES.AUTHORS} element={<BookList type={BOOK_LIST_TYPES.AUTHORS}/>}/>
                         <Route path={ROUTES.CITIES} element={<BookList type={BOOK_LIST_TYPES.CITIES}/>}/>
                         <Route path={`${ROUTES.BOOK}/:bookId`} element={<BookPage/>}/>
+                        <Route path={ROUTES.LOGIN} element={<LoginPage/>}/>
                     </Routes>
                 }
             </div>
