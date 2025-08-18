@@ -1,6 +1,12 @@
 import type {User} from "../../types/User.ts";
 import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
-import {addUserThunk, deleteUserThunk, editUserThunk, getUsersThunk, getUserThunk} from "./usersThunks.ts";
+import {
+    addUserThunk,
+    deleteUserThunk,
+    editUserThunk,
+    getUsersThunk,
+    getUserThunk
+} from "./usersThunks.ts";
 
 
 type UsersState = {
@@ -82,6 +88,7 @@ const usersSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to edit user';
             })
+            //deleteUserThunk
             .addCase(deleteUserThunk.pending, (state: UsersState) => {
                 state.isLoading = true;
                 state.error = null;

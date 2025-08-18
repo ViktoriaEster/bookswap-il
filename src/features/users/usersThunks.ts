@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {deleteUser, editUser, getUser, getUsers} from "../../api/usersApi";
+import { deleteUser, editUser, getUser, getUsers} from "../../api/usersApi";
 import type {User, UserInput} from "../../types/User";
 import {addUser}  from "../../api/usersApi.ts"
 

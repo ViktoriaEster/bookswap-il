@@ -1,9 +1,9 @@
 import styles from "../bookCard/BookCard.module.css";
 
-import {useSelector} from "react-redux";
-import type {RootState} from "../../app/store.ts";
+import {useDispatch, useSelector} from "react-redux";
+import type {AppDispatch, RootState} from "../../app/store.ts";
 import type {Book} from "../../types/Book.ts";
-
+import {addRemoveFavoriteBookThunk} from "../../features/authorization/authThunks.ts";
 
 type BookCardProps = {
     id: string;
@@ -15,6 +15,8 @@ const BookCard = ({id}: BookCardProps) => {
     const authors = useSelector((state: RootState) => state.authors.items);
     const genres = useSelector((state: RootState) => state.genres.items);
     const cities = useSelector((state: RootState) => state.cities.items);
+    const {currentUser, isLogin} = useSelector((state: RootState) => state.auth);
+    const dispatch = useDispatch<AppDispatch>();
 
     const book = books.find(b => b.id === id);
     if (!book) return <div>Book not found</div>;
@@ -23,8 +25,14 @@ const BookCard = ({id}: BookCardProps) => {
     const bookGenre = genres.find(genre => genre.id === book.genreId);
     const bookCity = cities.find(city => city.id === book.cityId);
 
+    const isFavorite = currentUser?.favoriteBookIds?.includes(book.id) ?? false;
+
     if (!bookGenre || !bookCity || bookAuthors.length === 0) return <div>Book details incomplete</div>;
 
+    const handleAddToFavorite = () => {
+    const actionType: 'add' | 'remove' = isFavorite? 'remove': "add";
+    dispatch(addRemoveFavoriteBookThunk({bookId: book.id, actionType: actionType}));
+    };
 
     return (
         <div>
@@ -42,12 +50,17 @@ const BookCard = ({id}: BookCardProps) => {
                         <span>Condition: {book.condition}</span>
                         <span className={styles.offerType}>{book.offerType}</span>
                     </div>
-
-                    <div className={styles.buttonRow}>
-                        <button className={styles.contactButton}>Contact with owner</button>
-                        <button className={styles.favoriteButton}>★ Add to favorites</button>
-                    </div>
-
+                    {isLogin ?
+                            <div className={styles.buttonRow}>
+                                <button className={styles.contactButton}>Contact with owner</button>
+                                <button className={
+                                    `${styles.favoriteButton} ${isFavorite ? styles.inFavorite : ""}`}
+                                onClick={handleAddToFavorite}>
+                                    {!isFavorite? '★ Add to favorites' : '★ In favorites books'}
+                                </button>
+                            </div> :
+                            <div className={styles.message}>Please login to contact with owner</div>
+                    }
                     <div className={styles.descriptionBlock}>
                         <h2>Description</h2>
                         <p>{book.description}</p>

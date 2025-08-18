@@ -1,6 +1,6 @@
 import type {PrivateUser} from "../../types/User.ts";
 import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
-import {getMeThunk, loginUserThunk} from "./authThunks.ts";
+import {addRemoveFavoriteBookThunk, getMeThunk, loginUserThunk} from "./authThunks.ts";
 
 
 type AuthState = {
@@ -58,6 +58,26 @@ export const authSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to get me';
             })
+            //add remove favorite book
+            .addCase(addRemoveFavoriteBookThunk.pending, (state: AuthState) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(addRemoveFavoriteBookThunk.fulfilled, (state: AuthState, action: PayloadAction< {status: string, bookId: string, actionType: 'add'| 'remove'}>) => {
+                state.isLoading = false;
+                state.error = null;
+                if (action.payload.actionType === 'add') {
+                    state.currentUser?.favoriteBookIds?.push(action.payload.bookId);
+                }
+                if (action.payload.actionType === 'remove' && state.currentUser?.favoriteBookIds) {
+                    state.currentUser.favoriteBookIds = state.currentUser.favoriteBookIds.filter(id => id !== action.payload.bookId);
+                }
+            })
+            .addCase(addRemoveFavoriteBookThunk.rejected, (state: AuthState, action) => {
+                state.isLoading = false;
+                state.error = action.payload || 'Failed to action with favorite book';
+            })
+
     }
 });
 

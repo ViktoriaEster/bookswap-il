@@ -45,6 +45,17 @@ export const editUser = async (id: string, userData: UserInput):Promise<PrivateU
     }
 };
 
+export const addRemoveFavoriteBook = async (data: {bookId: string, actionType: 'add'| 'remove'}):Promise<{status: string, bookId: string}> => {
+    try {
+        const response = await axiosInstance.put<{status: string, bookId: string}>(`/users/favorite/${data.bookId}`, {action: data.actionType});
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error("Error action with favorites books");
+    }
+}
+
 export const deleteUser = async (id: string):Promise<{message: string, id: string}> => {
     try {
         const response = await axiosInstance.delete<{message: string}>(`/users/${id}`);

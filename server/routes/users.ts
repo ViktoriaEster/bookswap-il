@@ -87,6 +87,7 @@ router.put("/:id", authMiddleware, (req: AuthenticatedRequest, res: Response<Use
 
     const userUpdateData = req.body;
     const updateUser = { ...user, ...userUpdateData, updatedAt: Date.now().toString() };
+    users[index] = updateUser;
 
     const validationError = validateUserUpdate(req.body);
     if (validationError) {
@@ -95,6 +96,33 @@ router.put("/:id", authMiddleware, (req: AuthenticatedRequest, res: Response<Use
 
     users[index] = updateUser;
     res.status(200).json(updateUser);
+});
+
+//add-remove favorite book (only self
+router.put("/favorite/:bookId", authMiddleware, (req: AuthenticatedRequest, res: Response<{status: string, bookId: string} | { error: string }>) => {
+    const userId = req.userId;
+    const bookId: string = req.params.bookId;
+    const action: 'add'| 'remove' = req.body.action;
+
+    const { index } = findUserAndIndexById(userId);
+    if (index === -1) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    const {index: bookIndex} = findUserAndIndexById(bookId);
+    if (bookIndex === -1) {
+        return res.status(404).json({ error: "Book not found" });
+    }
+
+    if (action==='remove') {
+        users[index].favoriteBookIds = users[index].favoriteBookIds.filter(id => id !== bookId);
+        return res.status(200).json({status: 'removed successful from favorite', bookId});
+    }
+    if (action==='add') {
+        users[index].favoriteBookIds.push(bookId);
+        return res.status(200).json({status: 'added successful to favorite', bookId});
+    }
+
 });
 
 //delete user (only self)
