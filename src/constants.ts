@@ -5,6 +5,7 @@ export const ROUTES = {
     CITIES: '/cities',
     BOOK: '/book',
     LOGIN: '/login',
+    SEARCH: '/search',
 
 };
 

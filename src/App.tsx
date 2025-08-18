@@ -22,6 +22,7 @@ import Spinner from "./components/spinner/Spinner.tsx";
 import BookPage from "./components/bookPage/BookPage.tsx";
 import LoginPage from "./components/LoginPage/LoginPage.tsx";
 import {getMeThunk} from "./features/authorization/authThunks.ts";
+import SearchResultPage from "./components/searchResultPage/SearchResultPage.tsx";
 
 function App() {
     const dispatch = useDispatch<AppDispatch>();
@@ -61,6 +62,7 @@ function App() {
                         <Route path={ROUTES.CITIES} element={<BookList type={BOOK_LIST_TYPES.CITIES}/>}/>
                         <Route path={`${ROUTES.BOOK}/:bookId`} element={<BookPage/>}/>
                         <Route path={ROUTES.LOGIN} element={<LoginPage/>}/>
+                        <Route path={ROUTES.SEARCH} element={<SearchResultPage/>}/>
                     </Routes>
                 }
             </div>

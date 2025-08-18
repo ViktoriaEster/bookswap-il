@@ -38,8 +38,11 @@
     min-width: 200px;
     margin: 0 10px;
 }
+.searchForm {
+    flex: 1;
+}
 
-.searchContainer input {
+.searchInput {
     width: 100%;
     max-width: 900px;
     padding: 6px 14px;
@@ -48,9 +51,6 @@
     outline: none;
     font-size: 0.9rem;
 }
-
-
-
 
 /* Mobile */
 @media (max-width: 768px) {
