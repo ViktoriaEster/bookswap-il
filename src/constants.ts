@@ -6,7 +6,8 @@ export const ROUTES = {
     BOOK: '/book',
     LOGIN: '/login',
     SEARCH: '/search',
-
+    MY_DASHBOARD: '/my',
+    USER : '/user',
 };
 
 export const BOOK_LIST_TYPES = {

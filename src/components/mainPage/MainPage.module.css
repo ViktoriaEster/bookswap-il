@@ -1,15 +1,28 @@
-
 .pageBackground {
-    background-color: #f5f6fa;
     min-height: 100vh;
-    padding: 2rem 0;
+    padding: 0.5rem 0;
 }
 
 .mainContainer {
-    max-width: 1100px;
+    max-width: 1200px;
     padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 2rem;
+    align-items: start;
+}
+
+.marketingColumn {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.contentColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     gap: 2rem;
 }
 
@@ -34,9 +47,23 @@
     margin-bottom: 0.8rem;
 }
 
-/* Посты */
+
 .postContainer {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
 }
+
+
+@media (max-width: 768px) {
+    .mainContainer {
+        grid-template-columns: 1fr;
+
+        .marketingColumn {
+            order: 2; /* маркетинг после контента */
+        }
+
+        .contentColumn {
+            order: 1;
+        }
+    }}

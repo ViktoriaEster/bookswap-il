@@ -28,15 +28,18 @@
 }
 
 .sidebar h3 {
+    display: flex;
+    justify-content: center;
     margin: 0 0 1rem;
     font-size: 1.5rem;
     font-weight: bold;
+    text-align: center;
+
 }
-
-
 .similarBooks {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
 }
 

@@ -4,6 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import type {AppDispatch, RootState} from "../../app/store.ts";
 import type {Book} from "../../types/Book.ts";
 import {addRemoveFavoriteBookThunk} from "../../features/authorization/authThunks.ts";
+import {useNavigate} from "react-router-dom";
+import {ROUTES} from "../../constants.ts";
 
 type BookCardProps = {
     id: string;
@@ -28,6 +30,7 @@ const BookCard = ({id, isPostView}: BookCardProps) => {
     const bookCity = cities.find(city => city.id === book.cityId);
 
     const isFavorite = currentUser?.favoriteBookIds.includes(book.id) ?? false;
+    const navigate = useNavigate();
 
     if (!bookGenre || !bookCity || bookAuthors.length === 0) return <div>Book details incomplete</div>;
 
@@ -39,6 +42,10 @@ const BookCard = ({id, isPostView}: BookCardProps) => {
             userId: currentUser.userId
         }));
     };
+
+    const handleContact = () => {
+        navigate(`${ROUTES.USER}/${book.ownerId}`)
+    }
 
     return (
         <div>
@@ -59,7 +66,7 @@ const BookCard = ({id, isPostView}: BookCardProps) => {
 
                     {(isLogin && currentUser && !isPostView) &&
                         <div className={styles.buttonRow}>
-                            <button className={styles.contactButton}>Contact with owner</button>
+                            <button className={styles.contactButton} onClick={handleContact}>Contact with owner</button>
                             <button className={
                                 `${styles.favoriteButton} ${isFavorite ? styles.inFavorite : ""}`}
                                     onClick={handleAddToFavorite}>

@@ -1,14 +1,14 @@
-import styles from "./userBlock.module.css";
+import styles from "./UserLoginBlock.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import type {AppDispatch, RootState} from "../../app/store.ts";
+import type {AppDispatch, RootState} from "../../../app/store.ts";
 import {useNavigate} from "react-router-dom";
-import {ROUTES} from "../../constants.ts";
-import {logout} from "../../features/authorization/authSlice.ts";
-import logoOutIcon from "../../assets/logoutIcon.png";
+import {ROUTES} from "../../../constants.ts";
+import {logout} from "../../../features/authorization/authSlice.ts";
+import logoOutIcon from "../../../assets/logoutIcon.png";
 
 
 
-const UserBlock = () => {
+const UserLoginBlock = () => {
 
     const isLogin = useSelector((state: RootState) => state.auth.isLogin);
     const currentUser = useSelector((state: RootState) => state.auth.currentUser);
@@ -30,8 +30,7 @@ const UserBlock = () => {
 
     return (
         <div className={styles.wrapper}>
-            <div className={styles.userName}>{currentUser?.name}</div>
-            <button className={styles.loginBtn} onClick={() => navigate(ROUTES.MY_BOOKS)}>My books</button>
+            <button className={styles.userNameButton} onClick={() => navigate(ROUTES.MY_DASHBOARD)}>{currentUser?.name}</button>
             <img
                 className={styles.logoImg}
                 src={logoOutIcon}
@@ -42,4 +41,4 @@ const UserBlock = () => {
     );
 };
 
-export default UserBlock;
+export default UserLoginBlock;

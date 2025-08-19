@@ -4,11 +4,15 @@
     gap: 12px;
 }
 
-.userName {
-    color: white; /* имя белым */
-    font-weight: bold;
+.userNameButton {
+    border: 1px solid white;
+    background: transparent; /* убрала фон */
+    border-radius: 9999px;
+    padding: 6px 14px;
+    color: white;
     font-size: 16px;
-
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .loginBtn {

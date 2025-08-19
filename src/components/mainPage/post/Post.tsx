@@ -1,11 +1,11 @@
-import BookCard from "../bookCard/BookCard.tsx";
+import BookCard from "../../bookCard/BookCard.tsx";
 import {useDispatch, useSelector} from "react-redux";
-import type {AppDispatch, RootState} from "../../app/store.ts";
-import type {User} from "../../types/User.ts";
+import type {AppDispatch, RootState} from "../../../app/store.ts";
+import type {User} from "../../../types/User.ts";
 import styles from "./Post.module.css"
 import {useNavigate} from "react-router-dom";
-import {ROUTES} from "../../constants.ts";
-import {updateBookViewsCountThunk} from "../../features/books/booksThunks.ts";
+import {ROUTES} from "../../../constants.ts";
+import {updateBookViewsCountThunk} from "../../../features/books/booksThunks.ts";
 
 type PostProps = {
     bookId: string;
