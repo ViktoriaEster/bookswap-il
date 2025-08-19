@@ -41,3 +41,32 @@
 .postContent {
     padding: 1rem;
 }
+
+.postFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-top: 1px solid #eee;
+    background-color: #fafafa;
+}
+
+.detailsButton {
+    background-color: #9bbb5e;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.detailsButton:hover {
+    background-color: #005fa3;
+}
+
+.bookLocationText {
+    color: #888888;
+    font-style: italic;
+}

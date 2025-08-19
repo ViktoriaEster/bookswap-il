@@ -31,7 +31,7 @@ const UserBlock = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.userName}>{currentUser?.name}</div>
-            <button className={styles.loginBtn}>My books</button>
+            <button className={styles.loginBtn} onClick={() => navigate(ROUTES.MY_BOOKS)}>My books</button>
             <img
                 className={styles.logoImg}
                 src={logoOutIcon}

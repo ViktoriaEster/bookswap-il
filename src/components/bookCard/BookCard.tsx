@@ -7,16 +7,18 @@ import {addRemoveFavoriteBookThunk} from "../../features/authorization/authThunk
 
 type BookCardProps = {
     id: string;
+    isPostView: boolean;
 };
 
 
-const BookCard = ({id}: BookCardProps) => {
+const BookCard = ({id, isPostView}: BookCardProps) => {
     const books: Book [] = useSelector((state: RootState) => state.books.items);
     const authors = useSelector((state: RootState) => state.authors.items);
     const genres = useSelector((state: RootState) => state.genres.items);
     const cities = useSelector((state: RootState) => state.cities.items);
     const {currentUser, isLogin} = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch<AppDispatch>();
+
 
     const book = books.find(b => b.id === id);
     if (!book) return <div>Book not found</div>;
@@ -25,13 +27,17 @@ const BookCard = ({id}: BookCardProps) => {
     const bookGenre = genres.find(genre => genre.id === book.genreId);
     const bookCity = cities.find(city => city.id === book.cityId);
 
-    const isFavorite = currentUser?.favoriteBookIds?.includes(book.id) ?? false;
+    const isFavorite = currentUser?.favoriteBookIds.includes(book.id) ?? false;
 
     if (!bookGenre || !bookCity || bookAuthors.length === 0) return <div>Book details incomplete</div>;
 
     const handleAddToFavorite = () => {
-    const actionType: 'add' | 'remove' = isFavorite? 'remove': "add";
-    dispatch(addRemoveFavoriteBookThunk({bookId: book.id, actionType: actionType}));
+        const actionType: 'add' | 'remove' = isFavorite ? 'remove' : "add";
+        if (currentUser) dispatch(addRemoveFavoriteBookThunk({
+            bookId: book.id,
+            actionType: actionType,
+            userId: currentUser.userId
+        }));
     };
 
     return (
@@ -50,21 +56,25 @@ const BookCard = ({id}: BookCardProps) => {
                         <span>Condition: {book.condition}</span>
                         <span className={styles.offerType}>{book.offerType}</span>
                     </div>
-                    {isLogin ?
-                            <div className={styles.buttonRow}>
-                                <button className={styles.contactButton}>Contact with owner</button>
-                                <button className={
-                                    `${styles.favoriteButton} ${isFavorite ? styles.inFavorite : ""}`}
-                                onClick={handleAddToFavorite}>
-                                    {!isFavorite? '★ Add to favorites' : '★ In favorites books'}
-                                </button>
-                            </div> :
-                            <div className={styles.message}>Please login to contact with owner</div>
+
+                    {(isLogin && currentUser && !isPostView) &&
+                        <div className={styles.buttonRow}>
+                            <button className={styles.contactButton}>Contact with owner</button>
+                            <button className={
+                                `${styles.favoriteButton} ${isFavorite ? styles.inFavorite : ""}`}
+                                    onClick={handleAddToFavorite}>
+                                {!isFavorite ? '★ Add to favorites' : '★ In favorites books'}
+                            </button>
+                        </div>}
+                    {!isLogin &&
+                        <div className={styles.message}>Please login to contact with owner</div>
                     }
-                    <div className={styles.descriptionBlock}>
+                    {
+                        (!isPostView) &&
+                        <div className={styles.descriptionBlock}>
                         <h2>Description</h2>
                         <p>{book.description}</p>
-                    </div>
+                    </div>}
                 </div>
 
                 <div className={styles.statsCorner}>

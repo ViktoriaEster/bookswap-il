@@ -24,7 +24,23 @@ const initialState: UsersState = {
 const usersSlice = createSlice({
     name: "users",
     initialState,
-    reducers: {},
+    reducers: {
+        editFavoriteBooks(state: UsersState, action: PayloadAction<{
+            userId: string,
+            bookId: string,
+            actionType: 'add' | 'remove'
+        }>) {
+            const userIndex = state.items.findIndex(u => u.userId === action.payload.userId);
+            if (userIndex >= 0) {
+                if (action.payload.actionType === 'add') {
+                    state.items[userIndex].favoriteBookIds.push(action.payload.bookId);
+                }
+                if (action.payload.actionType === 'remove') {
+                    state.items[userIndex].favoriteBookIds = state.items[userIndex].favoriteBookIds.filter(id => id !== action.payload.bookId);
+                }
+            }
+        }
+    },
     extraReducers: builder => {
         builder
             //getUsersThunk
@@ -73,7 +89,7 @@ const usersSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload || 'Failed create user';
             })
-        //editUserThunk
+            //editUserThunk
             .addCase(editUserThunk.pending, (state: UsersState) => {
                 state.isLoading = true;
                 state.error = null;
@@ -93,7 +109,10 @@ const usersSlice = createSlice({
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(deleteUserThunk.fulfilled, (state: UsersState, action: PayloadAction<{message: string, id: string}>) => {
+            .addCase(deleteUserThunk.fulfilled, (state: UsersState, action: PayloadAction<{
+                message: string,
+                id: string
+            }>) => {
                 state.isLoading = false;
                 state.error = null;
                 const index: number = state.items.findIndex((user) => user.userId === action.payload.id);
@@ -106,4 +125,5 @@ const usersSlice = createSlice({
     }
 })
 
+export const {editFavoriteBooks} = usersSlice.actions;
 export default usersSlice.reducer;

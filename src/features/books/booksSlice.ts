@@ -7,7 +7,7 @@ import {
     getActiveBooksThunk,
     getBookByIdThunk,
     getBooksThunk,
-    getOwnerBooksByIdThunk
+    getOwnerBooksByIdThunk, updateBookStatusThunk, updateBookViewsCountThunk
 } from "./booksThunks.ts";
 import {mergeBooksByIdUtil} from "./booksUtils.ts";
 
@@ -26,7 +26,15 @@ const initialState: BooksState = {
 const booksSlice = createSlice({
     name: "books",
     initialState,
-    reducers: {},
+    reducers: {
+        editBookLikeCount(state: BooksState, action: PayloadAction<{bookId: string, actionType: 'add' | 'remove'}>) {
+            const index = state.items.findIndex(book => book.id === action.payload.bookId);
+            if (index >= 0) {
+                if (action.payload.actionType==='add') state.items[index].likesCount +=1;
+                if (action.payload.actionType==='remove') state.items[index].likesCount -= 1;
+            }
+        }
+    },
     extraReducers: (builder) => {
         builder
             //getBooksThunk
@@ -114,11 +122,41 @@ const booksSlice = createSlice({
                 state.isLoading = false;
                 state.error = null;
                 const index = state.items.findIndex(book => book.id === action.payload.id);
-                if (index!==-1) state.items[index] = action.payload;
+                if (index>=0) state.items[index] = action.payload;
             })
             .addCase(editBookThunk.rejected, (state: BooksState, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to edit book';
+            })
+            //updateBookViewsCountThunk
+            .addCase(updateBookViewsCountThunk.pending, (state: BooksState) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(updateBookViewsCountThunk.fulfilled, (state: BooksState, action: PayloadAction<{status: string, bookId: string}>) => {
+                state.isLoading = false;
+                state.error = null;
+                const index = state.items.findIndex(book => book.id === action.payload.bookId);
+                if (index>=0) state.items[index].viewsCount += 1;
+            })
+            .addCase(updateBookViewsCountThunk.rejected, (state: BooksState, action) => {
+                state.isLoading = false;
+                state.error = action.payload || 'Failed to update book';
+            })
+            //updateBookStatusThunk
+            .addCase(updateBookStatusThunk.pending, (state: BooksState) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(updateBookStatusThunk.fulfilled, (state: BooksState, action: PayloadAction<Book>) => {
+                state.isLoading = false;
+                state.error = null;
+                const index = state.items.findIndex(book => book.id === action.payload.id);
+                if (index>=0) state.items[index] = action.payload;
+            })
+            .addCase(updateBookStatusThunk.rejected, (state: BooksState, action) => {
+                state.isLoading = false;
+                state.error = action.payload || 'Failed to update book';
             })
             //deleteBookThunk
             .addCase(deleteBookThunk.pending, (state: BooksState) => {
@@ -138,5 +176,5 @@ const booksSlice = createSlice({
     }
 });
 
-
+export const {editBookLikeCount} = booksSlice.actions;
 export default booksSlice.reducer;

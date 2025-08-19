@@ -67,7 +67,7 @@ export const authSlice = createSlice({
                 state.isLoading = false;
                 state.error = null;
                 if (action.payload.actionType === 'add') {
-                    state.currentUser?.favoriteBookIds?.push(action.payload.bookId);
+                    state.currentUser?.favoriteBookIds.push(action.payload.bookId);
                 }
                 if (action.payload.actionType === 'remove' && state.currentUser?.favoriteBookIds) {
                     state.currentUser.favoriteBookIds = state.currentUser.favoriteBookIds.filter(id => id !== action.payload.bookId);

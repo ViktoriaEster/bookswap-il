@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
-import type {RootState} from "../../app/store.ts";
+import { useSelector} from "react-redux";
+import type { RootState} from "../../app/store.ts";
 import styles from "./BookPage.module.css";
 import BookCardSmall from "../bookCardSmall/BookCardSmall.tsx";
 import type {Author} from "../../types/Author.ts";
@@ -25,7 +25,7 @@ const BookPage = () => {
     return (
         <div className={styles.pageContainer}>
             <div className={styles.bookCardBigContainer}>
-                <div><BookCard id={bookId}/></div>
+                <div><BookCard id={bookId} isPostView={false}/></div>
                 <div>Comments</div>
             </div>
             <aside className={styles.sidebar}>

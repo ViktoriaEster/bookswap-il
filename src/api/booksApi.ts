@@ -57,14 +57,26 @@ export const editBook = async (id: string, updateBook: BookUpdateInput): Promise
     return response.data;
 };
 
-export const updateBookStatus = async (id: string, status: BookStatus): Promise<Book> => {
+
+export const updateBookViewsCount = async (id: string): Promise<{status: string, bookId: string}> => {
     try {
-        const response = await axiosInstance.put<Book>(`/books/status/${id}`, status);
+        const response = await axiosInstance.patch<{status: string, bookId: string}>(`/books/view/${id}`);
         return response.data;
     }
     catch (error) {
         console.error(error);
-        throw new Error("Error updating book");
+        throw new Error("Error updating book view count");
+    }
+};
+
+export const updateBookStatus = async (id: string, status: BookStatus): Promise<Book> => {
+    try {
+        const response = await axiosInstance.patch<Book>(`/books/status/${id}`, {status: status});
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error("Error updating book status");
     }
 };
 

@@ -1,9 +1,11 @@
 import { type Request, type Response, Router } from "express";
 import { mockUsers as users } from "../data/mockUsers";
+import {mockBooks as books} from "../data/mockBooks";
 import { PublicUser, User, UserInput } from "../types/User";
 import { findUserAndIndexById, mapUserToPublic, validateUser, validateUserUpdate } from "../utils/usersUtils";
 import { authMiddleware } from "./authMiddleware";
 import { AuthenticatedRequest } from "../types/express/AuthRequest";
+import {findBookAndIndexById} from "../utils/booksUtils";
 
 const router = Router();
 
@@ -99,27 +101,29 @@ router.put("/:id", authMiddleware, (req: AuthenticatedRequest, res: Response<Use
 });
 
 //add-remove favorite book (only self
-router.put("/favorite/:bookId", authMiddleware, (req: AuthenticatedRequest, res: Response<{status: string, bookId: string} | { error: string }>) => {
+router.patch("/favorite/:bookId", authMiddleware, (req: AuthenticatedRequest, res: Response<{status: string, bookId: string} | { error: string }>) => {
     const userId = req.userId;
     const bookId: string = req.params.bookId;
     const action: 'add'| 'remove' = req.body.action;
 
-    const { index } = findUserAndIndexById(userId);
-    if (index === -1) {
+    const { index: userIndex } = findUserAndIndexById(userId);
+    if (userIndex === -1) {
         return res.status(404).json({ error: "User not found" });
     }
 
-    const {index: bookIndex} = findUserAndIndexById(bookId);
+    const {index: bookIndex} = findBookAndIndexById(bookId);
     if (bookIndex === -1) {
         return res.status(404).json({ error: "Book not found" });
     }
 
     if (action==='remove') {
-        users[index].favoriteBookIds = users[index].favoriteBookIds.filter(id => id !== bookId);
+        users[userIndex].favoriteBookIds = users[userIndex].favoriteBookIds.filter(id => id !== bookId);
+        books[bookIndex].likesCount += 1;
         return res.status(200).json({status: 'removed successful from favorite', bookId});
     }
     if (action==='add') {
-        users[index].favoriteBookIds.push(bookId);
+        users[userIndex].favoriteBookIds.push(bookId);
+        books[bookIndex].likesCount -= 1;
         return res.status(200).json({status: 'added successful to favorite', bookId});
     }
 

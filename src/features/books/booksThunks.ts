@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import type {Book, BookCreateInput} from "../../types/Book.ts";
+import type {Book, BookCreateInput, BookStatus} from "../../types/Book.ts";
 import {
     createBook,
     deleteBook,
@@ -7,7 +7,7 @@ import {
     getActiveBooks,
     getBookById,
     getBooks,
-    getOwnerBooksById
+    getOwnerBooksById, updateBookStatus, updateBookViewsCount
 } from "../../api/booksApi.ts";
 
 export const getBooksThunk = createAsyncThunk<Book[], void, {rejectValue: string}>(
@@ -75,6 +75,30 @@ export const editBookThunk = createAsyncThunk<Book, { id: string; updateBook: Bo
         }
     }
 );
+
+export const updateBookViewsCountThunk = createAsyncThunk<{status: string, bookId: string}, string, {rejectValue: string}>(
+    "books/updateBookViewsCount",
+    async (id: string, thunkAPI) => {
+        try {
+            return await updateBookViewsCount(id);
+        }
+        catch (error: any) {
+            return thunkAPI.rejectWithValue(error.message || "Failed to add views");
+        }
+    }
+);
+
+export const updateBookStatusThunk = createAsyncThunk<Book, {id: string, status: BookStatus}, {rejectValue: string}>(
+    "books/updateBookStatus",
+    async ({id, status}, thunkAPI) => {
+        try {
+            return await updateBookStatus(id, status);
+        }
+        catch (error: any) {
+            return thunkAPI.rejectWithValue(error.message || "Failed to update book");
+        }
+    }
+)
 
 export const deleteBookThunk = createAsyncThunk<{ message: string, id: string}, string, {rejectValue: string}>(
     "books/deleteBook",

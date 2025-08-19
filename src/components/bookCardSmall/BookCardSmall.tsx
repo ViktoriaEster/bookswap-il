@@ -4,6 +4,10 @@ import type {City} from "../../types/City.ts";
 import styles from "./BookCardSmall.module.css";
 import bookAlt from "../../assets/bookAlt.png";
 import {useNavigate} from "react-router-dom";
+import {ROUTES} from "../../constants.ts";
+import {updateBookViewsCountThunk} from "../../features/books/booksThunks.ts";
+import type {AppDispatch} from "../../app/store.ts";
+import {useDispatch} from "react-redux";
 
 type BookCardSmallProps = {
     book: Book;
@@ -13,6 +17,12 @@ type BookCardSmallProps = {
 
 const BookCardSmall = ({book, authors, city}: BookCardSmallProps) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
+
+    const handleBookDetails = () => {
+        dispatch(updateBookViewsCountThunk(book.id))
+        navigate(`${ROUTES.BOOK}/${book.id}`);
+    };
 
     return (
         <div className={styles.bookCardContainer}>
@@ -43,7 +53,7 @@ const BookCardSmall = ({book, authors, city}: BookCardSmallProps) => {
                 <span>❤️ {book.likesCount}</span>
             </div>
 
-            <button className={styles.moreButton} onClick={() => navigate(`/book/${book.id}`)}>More details</button>
+            <button className={styles.moreButton} onClick={handleBookDetails}>More details</button>
         </div>
     );
 };

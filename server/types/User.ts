@@ -9,7 +9,7 @@ export type User = {
     telegram?: string;
     aboutMe?: string;
     cityId?: string;
-    favoriteBookIds?: string[];
+    favoriteBookIds: string[];
     createdAt: string;
     updatedAt: string;
 };

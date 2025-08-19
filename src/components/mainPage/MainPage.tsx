@@ -36,7 +36,7 @@ const MainPage = () => {
                     {booksForPosts.map((b: Book) => (
                         <Post
                             key={b.id}
-                            id={b.id}
+                            bookId={b.id}
                             userId={b.ownerId}
                             date={b.createdDate}
                         />

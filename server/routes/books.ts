@@ -97,6 +97,17 @@ booksRouter.put("/:id", (req: Request<{ id: string }, {}, Partial<Book>>, res: R
     res.status(201).json(updatedBook);
 });
 
+//Update view count
+booksRouter.patch("/view/:id", (req: Request<{ id: string }>, res: Response<{status: string, bookId: string} | {error: string}>) => {
+    const bookId = req.params.id;
+    const {index} = findBookAndIndexById(bookId);
+    if (index === -1) {
+        return res.status(404).json({error: "Book not found"});
+    }
+    else books[index].viewsCount += 1;
+    res.status(200).json({status: 'success', bookId: bookId});
+});
+
 // Update book status (active/archived)
 booksRouter.patch("/status/:id", (req: Request<{ id: string }, {}, {
     status: "active" | "archived"
