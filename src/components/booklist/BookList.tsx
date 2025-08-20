@@ -1,14 +1,14 @@
 import {BOOK_LIST_TYPES, type BookListType} from "../../constants.ts";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import type {Book} from "../../types/Book.ts";
-import type {RootState} from "../../app/store.ts";
+import type {AppDispatch, RootState} from "../../app/store.ts";
 import type {Author} from "../../types/Author.ts";
 import type {Genre} from "../../types/Genre.ts";
 import type {City} from "../../types/City.ts";
 import BookCardSmall from "../bookCardSmall/BookCardSmall.tsx";
 import styles from "./BookList.module.css";
-import {useState} from "react";
-
+import {useEffect, useState} from "react";
+import {getActiveBooksThunk} from "../../features/books/booksThunks.ts";
 
 
 type BookListProps = {
@@ -16,6 +16,11 @@ type BookListProps = {
 };
 
 const BookList = ({type}: BookListProps) => {
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(getActiveBooksThunk())
+    }, [dispatch])
 
     const books: Book[] = useSelector((state: RootState) => state.books.items);
     const authors = useSelector((state: RootState) => state.authors.items);
@@ -37,6 +42,7 @@ const BookList = ({type}: BookListProps) => {
                 return null;
         }
     };
+
 
     const filterBooks = (filterId: string) => {
         if (!filterId) return books;

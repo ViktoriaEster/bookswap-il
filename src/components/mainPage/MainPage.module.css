@@ -1,6 +1,8 @@
+
 .pageBackground {
+    background-color: #f5f6fa;
     min-height: 100vh;
-    padding: 0.5rem 0;
+    padding: 2rem 0;
 }
 
 .mainContainer {
@@ -16,6 +18,20 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 1rem;
+}
+
+.contentColumn {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 2rem;
+    align-items: start;
+}
+
+.marketingColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     gap: 1rem;
 }
 
@@ -47,12 +63,30 @@
     margin-bottom: 0.8rem;
 }
 
-
 .postContainer {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
 }
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+@media (max-width: 768px) {
+    .mainContainer {
+        grid-template-columns: 1fr;
+
+        .marketingColumn {
+            order: 2; /* маркетинг после контента */
+        }
+
+        .contentColumn {
+            order: 1;
+        }
+    }}
 
 
 @media (max-width: 768px) {
