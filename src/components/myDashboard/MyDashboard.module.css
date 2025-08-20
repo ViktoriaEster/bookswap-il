@@ -1,0 +1,31 @@
+.myBooksPageContainer {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* левая узкая, правая широкая */
+    gap: 2rem;
+    align-items: start;
+}
+
+.messagesColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contentColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* адаптивка для мобилок */
+@media (max-width: 768px) {
+    .myBooksPageContainer {
+        grid-template-columns: 1fr;
+    }
+    .messagesColumn {
+        order: 2;
+    }
+    .contentColumn {
+        order: 1;
+    }
+}
