@@ -1,10 +1,10 @@
 import {axiosInstance} from "./instance.ts";
-import type {Comment, CommentInput} from "../types/Comment.ts";
+import type {UserComment, CommentInput} from "../types/UserComment.ts";
 
 
-export const getComments = async (): Promise<Comment[]> => {
+export const getComments = async (): Promise<UserComment[]> => {
     try {
-        const response = await axiosInstance.get<Comment[]>('/comments');
+        const response = await axiosInstance.get<UserComment[]>('/comments');
         return response.data;
     } catch (error) {
         console.error(error);
@@ -12,9 +12,9 @@ export const getComments = async (): Promise<Comment[]> => {
     }
 };
 
-export const getCommentsByID = async (id: string): Promise<Comment[]> => {
+export const getCommentByID = async (id: string): Promise<UserComment> => {
     try {
-        const response = await axiosInstance.get<Comment[]>(`/comments/${id}`);
+        const response = await axiosInstance.get<UserComment>(`/comments/${id}`);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -22,9 +22,9 @@ export const getCommentsByID = async (id: string): Promise<Comment[]> => {
     }
 };
 
-export const getBookComments = async (id: string): Promise<Comment[]> => {
+export const getBookComments = async (id: string): Promise<UserComment[]> => {
     try {
-        const response = await axiosInstance.get<Comment[]>(`/comments/book/${id}`);
+        const response = await axiosInstance.get<UserComment[]>(`/comments/book/${id}`);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -32,9 +32,19 @@ export const getBookComments = async (id: string): Promise<Comment[]> => {
     }
 };
 
-export const addComment = async (newComment: CommentInput): Promise<Comment> => {
+export const toggleLikeComment = async (id: string, userId: string): Promise<UserComment> => {
     try {
-        const response = await axiosInstance.post<Comment>(`/comments`, newComment);
+        const response = await axiosInstance.patch<UserComment>(`/comments/like`, {id: id, userId: userId});
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error like or dislike comment");
+    }
+}
+
+export const addComment = async (newComment: CommentInput): Promise<UserComment> => {
+    try {
+        const response = await axiosInstance.post<UserComment>(`/comments`, newComment);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -42,9 +52,9 @@ export const addComment = async (newComment: CommentInput): Promise<Comment> => 
     }
 };
 
-export const deleteComment = async (id: string): Promise<{message: string, id: string}> => {
+export const deleteComment = async (id: string): Promise<{ message: string, id: string }> => {
     try {
-        const response = await axiosInstance.delete<{message: string}>(`/comments/${id}`);
+        const response = await axiosInstance.delete<{ message: string }>(`/comments/${id}`);
         return {message: response.data.message, id: id};
     } catch (error) {
         console.error(error);

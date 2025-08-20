@@ -2,6 +2,7 @@ import {Router, Request, Response} from "express";
 import {Comment} from "../types/Comment";
 import {mockComments as comments} from "../data/mockComments";
 import {findCommentById, generateCommentId} from "../utils/commentsUtils";
+import {AuthenticatedRequest} from "../types/express/AuthRequest";
 
 const commentsRouter = Router();
 
@@ -14,7 +15,7 @@ commentsRouter.get("/", (req: Request, res: Response<Comment[]>) => {
 commentsRouter.get("/:id", (req: Request, res: Response<Comment | { error: string }>) => {
     const comment = findCommentById(req.params.id);
     if (!comment) {
-        return res.status(404).json({error: "Comment not found"});
+        return res.status(404).json({error: "MessageUniCard not found"});
     }
     res.status(200).json(comment);
 });
@@ -29,7 +30,7 @@ commentsRouter.get("/book/:bookId", (req: Request, res: Response<Comment[]>) => 
 commentsRouter.post(
     "/",
     (
-        req: Request<{}, {}, { bookId: string; authorId: string; text: string; replyToId?: string }>,
+        req: AuthenticatedRequest,
         res: Response<Comment | { error: string }>
     ) => {
         const {bookId, authorId, text, replyToId} = req.body;
@@ -41,21 +42,37 @@ commentsRouter.post(
 
         const newComment: Comment = {
             id: generateCommentId(),
-            bookId,
-            authorId,
+            bookId: bookId,
+            authorId: authorId,
             text: trimmedText,
             createdAt: new Date().toISOString(),
-            likesCount: 0,
-            ...(replyToId && {replyToId}),
-        };
+            likes: [],
+            ...(replyToId && {replyToId}),};
 
         comments.push(newComment);
         res.status(201).json(newComment);
     }
 );
 
+// Toggle like comment
+commentsRouter.patch("/like", (req: AuthenticatedRequest, res: Response<Comment | { error: string }>) => {
+    const commentId: string = req.body.id;
+    const userId: string = req.body.userId;
+    const index = comments.findIndex(c => c.id === commentId);
+    if (index === -1) {
+        return res.status(404).json({error: "Comment not found"});
+    }
+    const userLikeIndex = comments[index].likes.indexOf(userId);
+    if (userLikeIndex !== -1) {
+        comments[index].likes.splice(userLikeIndex, 1);
+    } else {
+        comments[index].likes.push(userId);
+    }
+    res.status(200).json(comments[index]);
+});
+
 // Delete comment
-commentsRouter.delete("/:id", (req: Request, res: Response<{ message: string } | { error: string }>) => {
+commentsRouter.delete("/:id", (req: AuthenticatedRequest, res: Response<{ message: string } | { error: string }>) => {
     const commentId = req.params.id;
     const index = comments.findIndex(c => c.id === commentId);
     if (index === -1) {

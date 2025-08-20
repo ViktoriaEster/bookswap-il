@@ -10,40 +10,38 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 
 
-
 import {getAuthorsThunk} from "./features/authors/authorsThunks.ts";
 import {getCitiesThunk} from "./features/cities/citiesThunks.ts";
 import {getGenresThunk} from "./features/genres/genresThunks.ts";
 import {getLanguagesThunk} from "./features/languages/languagesThunks.ts";
 import type {AppDispatch, RootState} from "./app/store.ts";
-import {getActiveBooksThunk} from "./features/books/booksThunks.ts";
-import {getUsersThunk} from "./features/users/usersThunks.ts";
 import Spinner from "./components/spinner/Spinner.tsx";
 import BookPage from "./components/bookPage/BookPage.tsx";
-import LoginPage from "./components/LoginPage/LoginPage.tsx";
+import LoginPage from "./components/loginPage/LoginPage.tsx";
 import {getMeThunk} from "./features/authorization/authThunks.ts";
 import SearchResultPage from "./components/searchResultPage/SearchResultPage.tsx";
+import MyDashboard from "./components/myDashboard/MyDashboard.tsx";
+import UserPage from "./components/user/UserPage.tsx";
+import {getUsersThunk} from "./features/users/usersThunks.ts";
 
 function App() {
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        dispatch(getActiveBooksThunk());
         dispatch(getAuthorsThunk());
         dispatch(getCitiesThunk());
         dispatch(getGenresThunk());
         dispatch(getLanguagesThunk());
-        dispatch(getUsersThunk());
+        dispatch(getUsersThunk())
         dispatch(getMeThunk());
     }, [dispatch]);
 
-    const isBooksLoading: boolean = useSelector((state: RootState) => state.books.isLoading);
     const isAuthorsLoading: boolean = useSelector((state: RootState) => state.authors.isLoading);
     const isGenresLoading: boolean = useSelector((state: RootState) => state.genres.isLoading);
     const isCitiesLoading: boolean = useSelector((state: RootState) => state.cities.isLoading);
     const isUsersLoading: boolean = useSelector((state: RootState) => state.users.isLoading);
 
-    const isAppLoading = isBooksLoading || isAuthorsLoading || isGenresLoading || isCitiesLoading || isUsersLoading;
+    const isAppLoading = isAuthorsLoading || isGenresLoading || isCitiesLoading ||isUsersLoading;
 
     return (
         <div className={styles.appContainer}>
@@ -63,6 +61,8 @@ function App() {
                         <Route path={`${ROUTES.BOOK}/:bookId`} element={<BookPage/>}/>
                         <Route path={ROUTES.LOGIN} element={<LoginPage/>}/>
                         <Route path={ROUTES.SEARCH} element={<SearchResultPage/>}/>
+                        <Route path={ROUTES.MY_DASHBOARD} element={<MyDashboard/>}/>
+                        <Route path={`${ROUTES.USER}/:userId`} element={<UserPage/>}></Route>
                     </Routes>
                 }
             </div>

@@ -5,5 +5,5 @@ export type Comment = {
     text: string;
     createdAt: string;
     replyToId?: string;
-    likesCount: number;
+    likes: string[];
 };

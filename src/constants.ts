@@ -6,7 +6,7 @@ export const ROUTES = {
     BOOK: '/book',
     LOGIN: '/login',
     SEARCH: '/search',
-    MY_DASHBOARD: '/my',
+    MY_DASHBOARD: '/my-dashboard',
     USER : '/user',
 };
 

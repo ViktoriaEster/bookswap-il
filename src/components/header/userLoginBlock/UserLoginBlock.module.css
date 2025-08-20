@@ -25,16 +25,3 @@
     font-weight: bold;
     cursor: pointer;
 }
-
-.logoImg {
-    width: 26px;
-    height: 26px;
-    cursor: pointer;
-    filter: brightness(0) invert(1);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.logoImg:active {
-    transform: rotate(90deg) scale(0.9);
-    opacity: 0.6;
-}

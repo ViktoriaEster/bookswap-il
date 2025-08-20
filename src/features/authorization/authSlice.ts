@@ -1,5 +1,5 @@
 import type {PrivateUser} from "../../types/User.ts";
-import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {addRemoveFavoriteBookThunk, getMeThunk, loginUserThunk} from "./authThunks.ts";
 
 
@@ -30,16 +30,16 @@ export const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
         //loginUserThunk
-            .addCase(loginUserThunk.pending, (state: AuthState,) => {
+            .addCase(loginUserThunk.pending, (state,) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(loginUserThunk.fulfilled, (state: AuthState, action: PayloadAction<{token: string}>) => {
+            .addCase(loginUserThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 localStorage.setItem("token", action.payload.token);
             })
-            .addCase(loginUserThunk.rejected, (state: AuthState, action) => {
+            .addCase(loginUserThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to login';
             })
@@ -48,22 +48,22 @@ export const authSlice = createSlice({
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(getMeThunk.fulfilled, (state: AuthState, action: PayloadAction<PrivateUser>) => {
+            .addCase(getMeThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 state.isLogin = true;
                 state.currentUser = action.payload;
             })
-            .addCase(getMeThunk.rejected, (state: AuthState, action) => {
+            .addCase(getMeThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to get me';
             })
             //add remove favorite book
-            .addCase(addRemoveFavoriteBookThunk.pending, (state: AuthState) => {
+            .addCase(addRemoveFavoriteBookThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(addRemoveFavoriteBookThunk.fulfilled, (state: AuthState, action: PayloadAction< {status: string, bookId: string, actionType: 'add'| 'remove'}>) => {
+            .addCase(addRemoveFavoriteBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 if (action.payload.actionType === 'add') {
@@ -73,7 +73,7 @@ export const authSlice = createSlice({
                     state.currentUser.favoriteBookIds = state.currentUser.favoriteBookIds.filter(id => id !== action.payload.bookId);
                 }
             })
-            .addCase(addRemoveFavoriteBookThunk.rejected, (state: AuthState, action) => {
+            .addCase(addRemoveFavoriteBookThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to action with favorite book';
             })

@@ -1,11 +1,14 @@
 import {useParams} from "react-router-dom";
-import { useSelector} from "react-redux";
-import type { RootState} from "../../app/store.ts";
+import {useDispatch, useSelector} from "react-redux";
+import type {AppDispatch, RootState} from "../../app/store.ts";
 import styles from "./BookPage.module.css";
 import BookCardSmall from "../bookCardSmall/BookCardSmall.tsx";
 import type {Author} from "../../types/Author.ts";
 import type {City} from "../../types/City.ts";
 import BookCard from "../bookCard/BookCard.tsx";
+import BookComments from "../bookComments/BookComments.tsx";
+import {useEffect} from "react";
+import {getBookByIdThunk} from "../../features/books/booksThunks.ts";
 
 const BookPage = () => {
     const {bookId} = useParams<{ bookId: string }>();
@@ -13,10 +16,17 @@ const BookPage = () => {
     const authors = useSelector((state: RootState) => state.authors.items);
     const genres = useSelector((state: RootState) => state.genres.items);
     const cities = useSelector((state: RootState) => state.cities.items);
+    const book = books.find(b => b.id === bookId);
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        if (bookId && !book) {
+            dispatch(getBookByIdThunk(bookId));
+        }
+    }, [dispatch, bookId, book]);
+
 
     if (!bookId) return <div>Book ID is missing</div>;
-
-    const book = books.find(b => b.id === bookId);
     if (!book) return <div>Book not found</div>;
 
     const bookGenre = genres.find(genre => genre.id === book.genreId);
@@ -26,7 +36,7 @@ const BookPage = () => {
         <div className={styles.pageContainer}>
             <div className={styles.bookCardBigContainer}>
                 <div><BookCard id={bookId} isPostView={false}/></div>
-                <div>Comments</div>
+                <div><BookComments bookId={bookId}/></div>
             </div>
             <aside className={styles.sidebar}>
                 <h3>Explore more {bookGenre?.name}</h3>

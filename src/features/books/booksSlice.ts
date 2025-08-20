@@ -38,11 +38,11 @@ const booksSlice = createSlice({
     extraReducers: (builder) => {
         builder
             //getBooksThunk
-            .addCase(getBooksThunk.pending, (state: BooksState) => {
+            .addCase(getBooksThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(getBooksThunk.fulfilled, (state: BooksState, action: PayloadAction<Book[]>) => {
+            .addCase(getBooksThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 state.items = action.payload;
@@ -52,25 +52,25 @@ const booksSlice = createSlice({
                 state.error = action.payload || 'Failed to fetch books';
             })
             //getActiveBookThunk
-            .addCase(getActiveBooksThunk.pending, (state: BooksState) => {
+            .addCase(getActiveBooksThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(getActiveBooksThunk.fulfilled, (state: BooksState, action: PayloadAction<Book[]>) => {
+            .addCase(getActiveBooksThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 state.items = mergeBooksByIdUtil (state.items, action.payload);
             })
-            .addCase(getActiveBooksThunk.rejected, (state: BooksState, action) => {
+            .addCase(getActiveBooksThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to fetch books';
             })
             //getBookByIdThunk
-            .addCase(getBookByIdThunk.pending, (state: BooksState) => {
+            .addCase(getBookByIdThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(getBookByIdThunk.fulfilled, (state: BooksState, action: PayloadAction<Book>) => {
+            .addCase(getBookByIdThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 const newBook = action.payload;
@@ -81,95 +81,95 @@ const booksSlice = createSlice({
                     state.items [index] = newBook;
                 }
             })
-            .addCase(getBookByIdThunk.rejected, (state: BooksState, action) => {
+            .addCase(getBookByIdThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to fetch books';
             })
             //getOwnerBooksByIdThunk
-            .addCase(getOwnerBooksByIdThunk.pending, (state: BooksState) => {
+            .addCase(getOwnerBooksByIdThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(getOwnerBooksByIdThunk.fulfilled, (state: BooksState, action: PayloadAction<Book[]>) => {
+            .addCase(getOwnerBooksByIdThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 state.items = mergeBooksByIdUtil (state.items, action.payload);
             })
-            .addCase(getOwnerBooksByIdThunk.rejected, (state: BooksState, action) => {
+            .addCase(getOwnerBooksByIdThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to fetch books';
             })
             //createBookThunk
-            .addCase(createBookThunk.pending, (state: BooksState) => {
+            .addCase(createBookThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(createBookThunk.fulfilled, (state: BooksState, action: PayloadAction<Book>) => {
+            .addCase(createBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 state.items.push(action.payload);
             })
-            .addCase(createBookThunk.rejected, (state: BooksState, action) => {
+            .addCase(createBookThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to create book';
             })
             //editBookThunk
-            .addCase(editBookThunk.pending, (state: BooksState) => {
+            .addCase(editBookThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(editBookThunk.fulfilled, (state: BooksState, action: PayloadAction<Book>) => {
+            .addCase(editBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 const index = state.items.findIndex(book => book.id === action.payload.id);
                 if (index>=0) state.items[index] = action.payload;
             })
-            .addCase(editBookThunk.rejected, (state: BooksState, action) => {
+            .addCase(editBookThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to edit book';
             })
             //updateBookViewsCountThunk
-            .addCase(updateBookViewsCountThunk.pending, (state: BooksState) => {
+            .addCase(updateBookViewsCountThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(updateBookViewsCountThunk.fulfilled, (state: BooksState, action: PayloadAction<{status: string, bookId: string}>) => {
+            .addCase(updateBookViewsCountThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 const index = state.items.findIndex(book => book.id === action.payload.bookId);
                 if (index>=0) state.items[index].viewsCount += 1;
             })
-            .addCase(updateBookViewsCountThunk.rejected, (state: BooksState, action) => {
+            .addCase(updateBookViewsCountThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to update book';
             })
             //updateBookStatusThunk
-            .addCase(updateBookStatusThunk.pending, (state: BooksState) => {
+            .addCase(updateBookStatusThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(updateBookStatusThunk.fulfilled, (state: BooksState, action: PayloadAction<Book>) => {
+            .addCase(updateBookStatusThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 const index = state.items.findIndex(book => book.id === action.payload.id);
                 if (index>=0) state.items[index] = action.payload;
             })
-            .addCase(updateBookStatusThunk.rejected, (state: BooksState, action) => {
+            .addCase(updateBookStatusThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to update book';
             })
             //deleteBookThunk
-            .addCase(deleteBookThunk.pending, (state: BooksState) => {
+            .addCase(deleteBookThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(deleteBookThunk.fulfilled, (state: BooksState, action: PayloadAction<{message: string, id: string}>) => {
+            .addCase(deleteBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
                 const index = state.items.findIndex(book => book.id === action.payload.id);
-                state.items.slice(index, 1);
+                state.items.splice(index, 1);
             })
-            .addCase(deleteBookThunk.rejected, (state: BooksState, action) => {
+            .addCase(deleteBookThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to delete book';
             });
