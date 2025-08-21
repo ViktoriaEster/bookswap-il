@@ -1,10 +1,12 @@
-import type {UniMessage, UserComment, UserMessage} from "../../types/UserComment.ts";
+import type {UserComment} from "../../types/UserComment.ts";
 import {useDispatch, useSelector} from "react-redux";
 import type {AppDispatch, RootState} from "../../app/store.ts";
 import {useEffect} from "react";
 import {getUserThunk} from "../../features/users/usersThunks.ts";
 import styles from "./MessageUniCard.module.css";
 import {toggleLikeCommentThunk} from "../../features/comments/commentsThunks.ts";
+import type {UniMessage} from "../../types/UniMessage.ts";
+import type {UserMessage} from "../../types/UserMessage.ts";
 
 type MessageUniCardProps = {
     message: UserComment | UserMessage | UniMessage;

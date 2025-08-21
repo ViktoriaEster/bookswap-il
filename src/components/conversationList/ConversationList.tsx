@@ -2,11 +2,11 @@ import styles from "../myDashboard/MyDashboard.module.css";
 import type {PrivateUser} from "../../types/User.ts";
 
 
-type MyMessagesListProps ={
+type ConversationListProps ={
     currentUser: PrivateUser;
 };
 
-const MyMessagesList = ({currentUser}: MyMessagesListProps) => {
+const ConversationList = ({currentUser}: ConversationListProps) => {
     return (
         <div>
             <div>Messages {currentUser.name}</div>
@@ -15,4 +15,4 @@ const MyMessagesList = ({currentUser}: MyMessagesListProps) => {
     );
 };
 
-export default MyMessagesList;
+export default ConversationList;
