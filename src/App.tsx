@@ -66,6 +66,7 @@ function App() {
                         <Route path={ROUTES.MY_DASHBOARD} element={<MyDashboard/>}/>
                         <Route path={`${ROUTES.USER}/:userId`} element={<UserPage/>}></Route>
                         <Route path={ROUTES.MESSAGES} element={<MyMessages/>}></Route>
+                        <Route path={ROUTES.PROFILE_EDITOR}/>
                     </Routes>
                 }
             </div>

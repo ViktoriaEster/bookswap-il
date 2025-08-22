@@ -10,6 +10,8 @@ export const ROUTES = {
     USER : '/user',
     MESSAGES: '/messages',
     FAVORITES: '/favorites',
+    PROFILE_EDITOR: '/profile/edit',
+    PROFILE_CREATOR: '/profile/create',
 };
 
 export const BOOK_LIST_TYPES = {
@@ -20,3 +22,5 @@ export const BOOK_LIST_TYPES = {
 }
 
 export type BookListType = typeof BOOK_LIST_TYPES[keyof typeof BOOK_LIST_TYPES];
+
+export const MIN_LOCAL = 10;

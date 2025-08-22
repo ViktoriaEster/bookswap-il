@@ -4,13 +4,13 @@ import {
     createBook,
     deleteBook,
     editBook,
-    getActiveBooks,
+    getActiveBooks, getAuthorBooks,
     getBookById,
-    getBooks,
-    getOwnerBooksById, updateBookStatus, updateBookViewsCount
+    getBooks, getCityBooks, getGenreBooks, getNewBooks,
+    getOwnerBooksById, getUserFavorites, updateBookStatus, updateBookViewsCount
 } from "../../api/booksApi.ts";
 
-export const getBooksThunk = createAsyncThunk<Book[], void, {rejectValue: string}>(
+export const getBooksThunk = createAsyncThunk<Book[], void, { rejectValue: string }>(
     "books/getBooks",
     async (_, thunkAPI) => {
         try {
@@ -21,8 +21,8 @@ export const getBooksThunk = createAsyncThunk<Book[], void, {rejectValue: string
     }
 );
 
-export const getActiveBooksThunk = createAsyncThunk<Book[], void, {rejectValue: string}>(
-    "books/getActiveBook",
+export const getActiveBooksThunk = createAsyncThunk<Book[], void, { rejectValue: string }>(
+    "books/getActiveBooks",
     async (_, thunkAPI) => {
         try {
             return await getActiveBooks();
@@ -32,7 +32,7 @@ export const getActiveBooksThunk = createAsyncThunk<Book[], void, {rejectValue: 
     }
 );
 
-export const getBookByIdThunk = createAsyncThunk<Book, string, {rejectValue: string}>(
+export const getBookByIdThunk = createAsyncThunk<Book, string, { rejectValue: string }>(
     "books/getBookById",
     async (id: string, thunkAPI) => {
         try {
@@ -43,7 +43,7 @@ export const getBookByIdThunk = createAsyncThunk<Book, string, {rejectValue: str
     }
 );
 
-export const getOwnerBooksByIdThunk = createAsyncThunk<Book[], string, {rejectValue: string}>(
+export const getOwnerBooksByIdThunk = createAsyncThunk<Book[], string, { rejectValue: string }>(
     "books/getOwnerBooks",
     async (id: string, thunkAPI) => {
         try {
@@ -54,7 +54,62 @@ export const getOwnerBooksByIdThunk = createAsyncThunk<Book[], string, {rejectVa
     }
 );
 
-export const createBookThunk = createAsyncThunk<Book, BookCreateInput, {rejectValue: string}>(
+export const getUserFavoritesThunk = createAsyncThunk<Book[], string, { rejectValue: string }>(
+    "books/getUserFavorites",
+    async (userId, thunkAPI) => {
+        try {
+            return await getUserFavorites(userId);
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.message || "Failed to fetch user favorites");
+        }
+    }
+);
+
+export const getAuthorBooksThunk = createAsyncThunk<Book[], string, { rejectValue: string }>(
+    "books/getAuthorBooks",
+    async (id, thunkAPI) => {
+        try {
+            return await getAuthorBooks(id);
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.message || "Failed to fetch author books");
+        }
+    }
+);
+
+export const getCityBooksThunk = createAsyncThunk<Book[], string, { rejectValue: string }>(
+    "books/getCityBooks",
+    async (id, thunkAPI) => {
+        try {
+            return await getCityBooks(id);
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.message || "Failed to fetch city books");
+        }
+    }
+);
+
+export const getGenreBooksThunk = createAsyncThunk<Book[], string, { rejectValue: string }>(
+    "books/getGenreBooks",
+    async (id, thunkAPI) => {
+        try {
+            return await getGenreBooks(id);
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.message || "Failed to fetch genre books");
+        }
+    }
+);
+
+export const getNewBooksThunk = createAsyncThunk<Book[], void, { rejectValue: string }>(
+    "books/getNewBooks",
+    async (_, thunkAPI) => {
+        try {
+            return await getNewBooks();
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue(error.message || "Failed to fetch new books");
+        }
+    }
+);
+
+export const createBookThunk = createAsyncThunk<Book, BookCreateInput, { rejectValue: string }>(
     "books/createBook",
     async (newBook: BookCreateInput, thunkAPI) => {
         try {
@@ -65,7 +120,9 @@ export const createBookThunk = createAsyncThunk<Book, BookCreateInput, {rejectVa
     }
 );
 
-export const editBookThunk = createAsyncThunk<Book, { id: string; updateBook: BookCreateInput }, {rejectValue: string}>
+export const editBookThunk = createAsyncThunk<Book, { id: string; updateBook: BookCreateInput }, {
+    rejectValue: string
+}>
 ("books/editBook",
     async ({id, updateBook}, thunkAPI) => {
         try {
@@ -76,31 +133,33 @@ export const editBookThunk = createAsyncThunk<Book, { id: string; updateBook: Bo
     }
 );
 
-export const updateBookViewsCountThunk = createAsyncThunk<{status: string, bookId: string}, string, {rejectValue: string}>(
+export const updateBookViewsCountThunk = createAsyncThunk<{ status: string, bookId: string }, string, {
+    rejectValue: string
+}>(
     "books/updateBookViewsCount",
     async (id: string, thunkAPI) => {
         try {
             return await updateBookViewsCount(id);
-        }
-        catch (error: any) {
+        } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message || "Failed to add views");
         }
     }
 );
 
-export const updateBookStatusThunk = createAsyncThunk<Book, {id: string, status: BookStatus}, {rejectValue: string}>(
+export const updateBookStatusThunk = createAsyncThunk<Book, { id: string, status: BookStatus }, {
+    rejectValue: string
+}>(
     "books/updateBookStatus",
     async ({id, status}, thunkAPI) => {
         try {
             return await updateBookStatus(id, status);
-        }
-        catch (error: any) {
+        } catch (error: any) {
             return thunkAPI.rejectWithValue(error.message || "Failed to update book");
         }
     }
 )
 
-export const deleteBookThunk = createAsyncThunk<{ message: string, id: string}, string, {rejectValue: string}>(
+export const deleteBookThunk = createAsyncThunk<{ message: string, id: string }, string, { rejectValue: string }>(
     "books/deleteBook",
     async (id: string, thunkAPI) => {
         try {
