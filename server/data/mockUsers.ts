@@ -44,7 +44,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["3"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "4",
@@ -59,7 +59,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["2", "3"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "5",
@@ -74,7 +74,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["1"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "6",
@@ -89,7 +89,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["4", "5"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "7",
@@ -104,7 +104,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["2"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "8",
@@ -119,7 +119,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["3", "5"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "9",
@@ -134,7 +134,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["1"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "10",
@@ -149,7 +149,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["4"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "11",
@@ -164,7 +164,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["2", "3"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "12",
@@ -179,7 +179,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["5"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "13",
@@ -194,7 +194,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["1", "4"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "14",
@@ -209,7 +209,7 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["2"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   },
   {
     userId: "15",
@@ -224,6 +224,6 @@ export const mockUsers: User[] = [
     favoriteBookIds: ["3", "5"],
     createdAt: "2025-07-10T10:00:00.000Z",
     updatedAt: "2025-07-10T10:00:00.000Z",
-    passwordHash: ""
+    passwordHash: "123"
   }
 ];

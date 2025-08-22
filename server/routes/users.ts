@@ -118,12 +118,12 @@ router.patch("/favorite/:bookId", authMiddleware, (req: AuthenticatedRequest, re
 
     if (action==='remove') {
         users[userIndex].favoriteBookIds = users[userIndex].favoriteBookIds.filter(id => id !== bookId);
-        books[bookIndex].likesCount += 1;
+        books[bookIndex].favoritesCount += 1;
         return res.status(200).json({status: 'removed successful from favorite', bookId});
     }
     if (action==='add') {
         users[userIndex].favoriteBookIds.push(bookId);
-        books[bookIndex].likesCount -= 1;
+        books[bookIndex].favoritesCount -= 1;
         return res.status(200).json({status: 'added successful to favorite', bookId});
     }
 

@@ -11,7 +11,6 @@ export type Book = {
     status: "active" | "archived";
     offerType: "exchange" | "sell" | "giveaway";
     price?: number;
-    likesCount: number;
     viewsCount: number;
     favoritesCount: number;
     description?: string;
