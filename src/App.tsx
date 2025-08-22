@@ -23,6 +23,7 @@ import SearchResultPage from "./components/searchResultPage/SearchResultPage.tsx
 import MyDashboard from "./components/myDashboard/MyDashboard.tsx";
 import UserPage from "./components/user/UserPage.tsx";
 import {getUsersThunk} from "./features/users/usersThunks.ts";
+import MyMessages from "./components/myMessages/MyMessages.tsx";
 
 function App() {
     const dispatch = useDispatch<AppDispatch>();
@@ -58,11 +59,13 @@ function App() {
                         <Route path={ROUTES.GENRES} element={<BookList type={BOOK_LIST_TYPES.GENRES}/>}/>
                         <Route path={ROUTES.AUTHORS} element={<BookList type={BOOK_LIST_TYPES.AUTHORS}/>}/>
                         <Route path={ROUTES.CITIES} element={<BookList type={BOOK_LIST_TYPES.CITIES}/>}/>
+                        <Route path={ROUTES.FAVORITES} element={<BookList type={BOOK_LIST_TYPES.FAVORITES}/>}></Route>
                         <Route path={`${ROUTES.BOOK}/:bookId`} element={<BookPage/>}/>
                         <Route path={ROUTES.LOGIN} element={<LoginPage/>}/>
                         <Route path={ROUTES.SEARCH} element={<SearchResultPage/>}/>
                         <Route path={ROUTES.MY_DASHBOARD} element={<MyDashboard/>}/>
                         <Route path={`${ROUTES.USER}/:userId`} element={<UserPage/>}></Route>
+                        <Route path={ROUTES.MESSAGES} element={<MyMessages/>}></Route>
                     </Routes>
                 }
             </div>

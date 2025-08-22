@@ -1,0 +1,57 @@
+.favoriteBooksContainer {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden; /* чтобы сам контейнер не скроллился */
+}
+
+.favoriteBooksList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    padding: 0.7rem 0 0.5rem 0;
+}
+
+
+.titleContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonSee {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    background: linear-gradient(180deg, #9bbb5e, #389d5f);
+    color: #fff;
+}
+
+.buttonSee:hover {
+    background-color: #389d5f;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #222;
+}
+
+.notBooks {
+    font-size: 1rem;
+    color: #888888;
+    text-align: center;
+    margin: 1rem 0;
+    font-style: italic;
+}

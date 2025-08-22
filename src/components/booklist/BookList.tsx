@@ -26,6 +26,7 @@ const BookList = ({type}: BookListProps) => {
     const authors = useSelector((state: RootState) => state.authors.items);
     const genres = useSelector((state: RootState) => state.genres.items);
     const cities = useSelector((state: RootState) => state.cities.items);
+    const currentUser= useSelector((state: RootState) => state.auth.currentUser);
 
     const [activeFilter, setActiveFilter] = useState<string>('');
     const [activeBooks, setActiveBooks] = useState<Book[]>(books);
@@ -43,7 +44,6 @@ const BookList = ({type}: BookListProps) => {
         }
     };
 
-
     const filterBooks = (filterId: string) => {
         if (!filterId) return books;
         switch (type) {
@@ -53,6 +53,8 @@ const BookList = ({type}: BookListProps) => {
                 return books.filter(book => book.genreId === filterId);
             case BOOK_LIST_TYPES.CITIES:
                 return books.filter((book: Book) => book.cityId === filterId);
+            case BOOK_LIST_TYPES.FAVORITES:
+                return books.filter((book: Book) => currentUser?.favoriteBookIds.includes(book.id));
             default:
                 return books;
         }
@@ -67,20 +69,34 @@ const BookList = ({type}: BookListProps) => {
 
     const navMenuItems = createNavMenuItems();
 
+    useEffect(() => {
+        if (type === BOOK_LIST_TYPES.FAVORITES && currentUser) {
+            setActiveBooks(
+                books.filter((book) => currentUser.favoriteBookIds.includes(book.id))
+            );
+        } else {
+            setActiveBooks(books);
+        }
+    }, [type, books, currentUser]);
+
     return (
-        <div className={styles.bookListContainer}>
-            {navMenuItems &&
-                <div className={styles.navMenuContainer}>
-                    {navMenuItems.map((item: Author | City | Genre) =>
-                        <div className={`${styles.navMenuItem} ${activeFilter === item.id ? styles.active : ''}`}
-                             onClick={() => handleClickFilterBooks(item.id)} key={item.id}>{item.name}</div>)}
-                </div>}
-            <div className={styles.bookCardsContainer}>
-                {activeBooks.map((book: Book) => {
-                    const bookAuthors = authors.filter((author: Author) => book.authorIds.includes(author.id));
-                    const bookCity = cities.find((city: City) => book.cityId === city.id) ?? null;
-                    return <BookCardSmall key={book.id} book={book} authors={bookAuthors} city={bookCity}/>
-                })}
+        <div>
+            {type===BOOK_LIST_TYPES.FAVORITES && currentUser &&<div className={styles.favoriteBooksTitle}>My favorite books</div>}
+            {activeBooks.length===0 && <div className={styles.notBooks}>Nothing here yet...</div>}
+            <div className={styles.bookListContainer}>
+                {navMenuItems &&
+                    <div className={styles.navMenuContainer}>
+                        {navMenuItems.map((item: Author | City | Genre) =>
+                            <div className={`${styles.navMenuItem} ${activeFilter === item.id ? styles.active : ''}`}
+                                 onClick={() => handleClickFilterBooks(item.id)} key={item.id}>{item.name}</div>)}
+                    </div>}
+                <div className={styles.bookCardsContainer}>
+                    {activeBooks.map((book: Book) => {
+                        const bookAuthors = authors.filter((author: Author) => book.authorIds.includes(author.id));
+                        const bookCity = cities.find((city: City) => book.cityId === city.id) ?? null;
+                        return <BookCardSmall key={book.id} book={book} authors={bookAuthors} city={bookCity}/>
+                    })}
+                </div>
             </div>
         </div>
     );

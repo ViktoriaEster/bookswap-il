@@ -1,15 +1,22 @@
-import {useSelector} from "react-redux";
-import type {RootState} from "../../app/store.ts";
+import {useDispatch, useSelector} from "react-redux";
+import type {AppDispatch, RootState} from "../../app/store.ts";
 import type {Book} from "../../types/Book.ts";
 import Post from "./post/Post.tsx";
 import styles from "./MainPage.module.css";
 import MarketingBlock from "./marketingBlock/MarketingBlock.tsx";
+import {useEffect} from "react";
+import {getActiveBooksThunk} from "../../features/books/booksThunks.ts";
 
 const MainPage = () => {
     const books: Book[] = useSelector((state: RootState) => state.books.items);
     const booksForPosts = [...books]
         .sort((a, b) => Date.parse(b.createdDate) - Date.parse(a.createdDate))
         .splice(0, 19);
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(getActiveBooksThunk())}, [dispatch]
+    )
 
     return (
         <div className={styles.pageBackground}>

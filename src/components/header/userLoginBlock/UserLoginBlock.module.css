@@ -1,27 +1,48 @@
 .wrapper {
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 12px;
 }
 
-.userNameButton {
+.userNameButton,
+.loginBtn {
     border: 1px solid white;
-    background: transparent; /* убрала фон */
+    background: transparent;
     border-radius: 9999px;
     padding: 6px 14px;
     color: white;
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.userNameButton:hover,
+.loginBtn:hover {
+    background-color: white;
+    color: #389d5f;
+}
+
+.iconStar{
+    height: 23px;
+    width: auto;
+    filter: invert(1);
     cursor: pointer;
 }
 
-.loginBtn {
-    border: 1px solid white;
-    background: transparent; /* убрала фон */
-    border-radius: 9999px;
-    padding: 6px 14px;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
+.iconStar:hover,
+.iconMessage:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+.iconMessage {
+    height: 27px;
+    width: auto;
     cursor: pointer;
+    filter: invert(1);
 }

@@ -1,31 +1,43 @@
-.myBooksPageContainer {
+.myDashboardContent {
     display: grid;
-    grid-template-columns: 280px 1fr; /* левая узкая, правая широкая */
-    gap: 2rem;
-    align-items: start;
+    gap: 1rem;
+    width: 100%;
+    height: 100vh;
+    align-items: stretch;
+
+    grid-template-areas:
+        "profile favorites"
+        "myBooks myBooks";
+    grid-template-columns: 1fr 2fr;
+    /*padding-top: 0.5rem;*/
+
 }
 
-.messagesColumn {
+.profileSection {
+    grid-area: profile;
+    height: 100%;
     display: flex;
-    flex-direction: column;
+}
+
+.favoritesSection {
+    grid-area: favorites;
+    height: 100%;
+    display: flex;
+}
+
+.myBooksContainer {
+    grid-area: myBooks;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 1rem;
 }
 
-.contentColumn {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-/* адаптивка для мобилок */
-@media (max-width: 768px) {
-    .myBooksPageContainer {
+@media (max-width: 900px) {
+    .myDashboardContent {
+        grid-template-areas:
+            "profile"
+            "myBooks"
+            "favorites";
         grid-template-columns: 1fr;
-    }
-    .messagesColumn {
-        order: 2;
-    }
-    .contentColumn {
-        order: 1;
     }
 }

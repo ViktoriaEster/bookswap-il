@@ -9,19 +9,21 @@
 
 .navBarContainer button {
     border: none;
-    color: #389d5f;
     background: none;
+    color: #389d5f;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    padding: 0.5rem 1rem; /* одинаковый padding для всех кнопок */
+    border-radius: 4px;   /* одинаковый радиус */
+    transition: background 0.3s, color 0.3s; /* плавная анимация при hover/active */
+}
+
+.navBarContainer button:hover {
+    background: rgba(56, 157, 95, 0.1); /* легкий фон при наведении */
 }
 
 .activeLink button {
-    background: linear-gradient(135deg, #9bbb5e , #389d5f);
+    background: linear-gradient(135deg, #9bbb5e, #389d5f);
     color: white;
-    font-weight: bold;
-    border: none;
-    outline: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
 }

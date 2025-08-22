@@ -41,3 +41,27 @@
     gap: 10px;
     scroll-behavior: auto;
 }
+
+.favoriteBooksTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #389d5f;
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    text-transform: capitalize;
+}
+
+.notBooks {
+    font-size: 1rem;
+    color: #888888;
+    text-align: center;
+    margin: 1rem 0;
+    font-style: italic;
+}
+
+@media (max-width: 900px) {
+    .favoriteBooksTitle {
+        font-size: 1.3rem; /* чуть меньше на планшетах и мобильных */
+    }
+}
