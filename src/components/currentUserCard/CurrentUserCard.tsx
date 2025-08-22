@@ -1,12 +1,14 @@
 import styles from "./CurrentUserCard.module.css";
-import type {PrivateUser} from "../../../types/User.ts";
-import type {AppDispatch} from "../../../app/store.ts";
+import type {PrivateUser} from "../../types/User.ts";
+import type {AppDispatch} from "../../app/store.ts";
 import {useDispatch} from "react-redux";
-import {logout} from "../../../features/authorization/authSlice.ts";
-import man from "../../../assets/man.png";
-import woman from "../../../assets/woman.png";
-import male from "../../../assets/male.png";
-import female from "../../../assets/female.png";
+import {logout} from "../../features/authorization/authSlice.ts";
+import man from "../../assets/man.png";
+import woman from "../../assets/woman.png";
+import male from "../../assets/male.png";
+import female from "../../assets/female.png";
+import {useNavigate} from "react-router-dom";
+import {ROUTES} from "../../constants.ts";
 
 type CurrentUserProps = {
     currentUser: PrivateUser
@@ -14,8 +16,14 @@ type CurrentUserProps = {
 
 const CurrentUserCard = ({currentUser}: CurrentUserProps) => {
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+
     const handleLogout = () => {
         dispatch(logout());
+    };
+
+    const handleEditProfile = () => {
+        navigate(ROUTES.PROFILE_EDITOR);
     };
 
     const avatarSrc = currentUser.avatarUrl
@@ -56,7 +64,7 @@ const CurrentUserCard = ({currentUser}: CurrentUserProps) => {
                     <div>{currentUser.aboutMe || "No description provided."}</div>
                 </div>
                 <div className={styles.buttonBlock}>
-                    <button className={styles.editBtn}>Edit profile</button>
+                    <button className={styles.editBtn} onClick={handleEditProfile}>Edit profile</button>
                     <button className={styles.logoutBtn} onClick={handleLogout}>Logout</button>
                 </div>
             </div>

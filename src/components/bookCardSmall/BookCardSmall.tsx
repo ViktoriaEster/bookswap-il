@@ -50,7 +50,7 @@ const BookCardSmall = ({book, authors, city}: BookCardSmallProps) => {
 
             <div className={styles.stats}>
                 <span>👁 {book.viewsCount}</span>
-                <span>❤️ {book.likesCount}</span>
+                <span>⭐ {book.favoritesCount}</span>
             </div>
 
             <button className={styles.moreButton} onClick={handleBookDetails}>More details</button>
