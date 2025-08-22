@@ -1,10 +1,10 @@
-import type {Author} from "../../../types/Author.ts";
-import type {City} from "../../../types/City.ts";
-import BookCardSmall from "../../bookCardSmall/BookCardSmall.tsx";
-import type {Book} from "../../../types/Book.ts";
+import type {Author} from "../../types/Author.ts";
+import type {City} from "../../types/City.ts";
+import BookCardSmall from "../bookCardSmall/BookCardSmall.tsx";
+import type {Book} from "../../types/Book.ts";
 import {useSelector} from "react-redux";
-import type {RootState} from "../../../app/store.ts";
-import type {PrivateUser} from "../../../types/User.ts";
+import type {RootState} from "../../app/store.ts";
+import type {PrivateUser} from "../../types/User.ts";
 
 type MyBooksProps = {
     currentUser: PrivateUser;

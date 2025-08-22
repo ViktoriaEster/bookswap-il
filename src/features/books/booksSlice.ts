@@ -4,10 +4,10 @@ import {
     createBookThunk,
     deleteBookThunk,
     editBookThunk,
-    getActiveBooksThunk,
+    getActiveBooksThunk, getAuthorBooksThunk,
     getBookByIdThunk,
-    getBooksThunk,
-    getOwnerBooksByIdThunk, updateBookStatusThunk, updateBookViewsCountThunk
+    getBooksThunk, getCityBooksThunk, getGenreBooksThunk, getNewBooksThunk,
+    getOwnerBooksByIdThunk, getUserFavoritesThunk, updateBookStatusThunk, updateBookViewsCountThunk
 } from "./booksThunks.ts";
 import {mergeBooksByIdUtil} from "./booksUtils.ts";
 
@@ -30,8 +30,8 @@ const booksSlice = createSlice({
         editBookLikeCount(state: BooksState, action: PayloadAction<{bookId: string, actionType: 'add' | 'remove'}>) {
             const index = state.items.findIndex(book => book.id === action.payload.bookId);
             if (index >= 0) {
-                if (action.payload.actionType==='add') state.items[index].likesCount +=1;
-                if (action.payload.actionType==='remove') state.items[index].likesCount -= 1;
+                if (action.payload.actionType==='add') state.items[index].favoritesCount +=1;
+                if (action.payload.actionType==='remove') state.items[index].favoritesCount -= 1;
             }
         }
     },
@@ -98,6 +98,76 @@ const booksSlice = createSlice({
             .addCase(getOwnerBooksByIdThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload || 'Failed to fetch books';
+            })
+            //getUserFavoritesThink
+            .addCase(getUserFavoritesThunk.pending,state => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(getUserFavoritesThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = null;
+                state.items = mergeBooksByIdUtil(state.items, action.payload);
+            })
+            .addCase(getUserFavoritesThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload || 'Failed to fetch favorite books';
+            })
+            //getGenreBooksThunk
+            .addCase(getGenreBooksThunk.pending,state => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(getGenreBooksThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = null;
+                state.items = mergeBooksByIdUtil(state.items, action.payload);
+            })
+            .addCase(getGenreBooksThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload || 'Failed to fetch genre books';
+            })
+            //getAuthorBooksThunk
+            .addCase(getAuthorBooksThunk.pending,state => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(getAuthorBooksThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = null;
+                state.items = mergeBooksByIdUtil(state.items, action.payload);
+            })
+            .addCase(getAuthorBooksThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload || 'Failed to fetch author books';
+            })
+            //getCityBooksThunk
+            .addCase(getCityBooksThunk.pending,state => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(getCityBooksThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = null;
+                state.items = mergeBooksByIdUtil(state.items, action.payload);
+            })
+            .addCase(getCityBooksThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload || 'Failed to fetch city books';
+            })
+            //getNewBooksThunk
+            .addCase(getNewBooksThunk.pending,state => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(getNewBooksThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = null;
+                state.items = mergeBooksByIdUtil(state.items, action.payload);
+            })
+            .addCase(getNewBooksThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload || 'Failed to fetch city books';
             })
             //createBookThunk
             .addCase(createBookThunk.pending, (state) => {
@@ -167,6 +237,7 @@ const booksSlice = createSlice({
                 state.isLoading = false;
                 state.error = null;
                 const index = state.items.findIndex(book => book.id === action.payload.id);
+                if (index >= 0) state.items.splice(index, 1);
                 state.items.splice(index, 1);
             })
             .addCase(deleteBookThunk.rejected, (state, action) => {

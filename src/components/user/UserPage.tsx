@@ -7,7 +7,7 @@ const UserPage = () => {
 
     return (
         <div>
-            <div>Contact with user id #{userId}</div>
+            <div>User card#{userId}</div>
 
         </div>
     );

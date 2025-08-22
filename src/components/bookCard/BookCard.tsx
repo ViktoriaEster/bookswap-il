@@ -85,7 +85,7 @@ const BookCard = ({id, isPostView}: BookCardProps) => {
                 </div>
 
                 <div className={styles.statsCorner}>
-                    <div className={styles.statItem}>❤️ {book.likesCount}</div>
+                    <div className={styles.statItem}>⭐ {book.favoritesCount}</div>
                     <div className={styles.statItem}>👀 {book.viewsCount}</div>
                 </div>
             </div>

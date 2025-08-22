@@ -22,6 +22,50 @@ export const getActiveBooks = async (): Promise<Book[]> => {
     }
 };
 
+export const getAuthorBooks = async (id: string): Promise<Book[]> => {
+    try {
+        const response = await axiosInstance.get<Book[]>(`/books/author/${id}`);
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error("Error getting author books");
+    }
+};
+
+export const getCityBooks = async (id: string): Promise<Book[]> => {
+    try {
+        const response = await axiosInstance.get<Book[]>(`/books/city/${id}`);
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error("Error getting city books");
+    }
+};
+
+export const getGenreBooks = async (id: string): Promise<Book[]> => {
+    try {
+        const response = await axiosInstance.get<Book[]>(`/books/genre/${id}`);
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error("Error getting genre books");
+    }
+};
+
+export const getNewBooks = async (): Promise<Book[]> => {
+    try {
+        const response = await axiosInstance.get<Book[]>('/books/new');
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error("Error getting new books");
+    }
+};
+
 export const getBookById = async (id: string): Promise<Book> => {
     try {
         const response = await axiosInstance.get<Book>(`/books/${id}`);
@@ -39,6 +83,17 @@ export const getOwnerBooksById = async (id: string): Promise<Book[]> => {
     } catch (error) {
         console.error(error);
         throw new Error("Error getting owner books");
+    }
+};
+
+export const getUserFavorites = async (userId: string): Promise<Book[]> => {
+    try {
+        const response = await axiosInstance.get<Book[]>(`/books/favorites/${userId}`);
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+        throw new Error("Error getting user favorites");
     }
 };
 

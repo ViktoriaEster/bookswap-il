@@ -3,15 +3,14 @@ import {useSelector} from "react-redux";
 import type {RootState} from "../../app/store.ts";
 import {useNavigate} from "react-router-dom";
 import {ROUTES} from "../../constants.ts";
-import CurrentUserCard from "./currentUserCard/CurrentUserCard.tsx";
-import MyBooks from "./myBooks/MyBooks.tsx";
+import CurrentUserCard from "../currentUserCard/CurrentUserCard.tsx";
+import MyBooks from "../myBooks/MyBooks.tsx";
 import FavoriteBooks from "../favoriteBooks/FavoriteBooks.tsx";
 
 const MyDashboard = () => {
 
     const {isLogin, currentUser} = useSelector((state: RootState) => state.auth);
     const navigate = useNavigate();
-
     if (!isLogin || !currentUser) {
         navigate(ROUTES.LOGIN);
     }
